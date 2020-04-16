@@ -1,34 +1,41 @@
+import 'package:app01/pages/tabs/Home/travel_page.dart';
+import 'package:app01/pages/tabs/Me/mine_page.dart';
 import 'package:flutter/material.dart';
 import 'FaBu.dart';
-import 'Home.dart';
-import 'My.dart';
-import 'Xiaoxi.dart';
+// import 'Home/Home.dart';
+import 'Me/My.dart';
+import 'Message/Xiaoxi.dart';
 import 'chat/Chat.dart';
 
-class Tabs extends StatefulWidget {
-  Tabs({Key key}) : super(key: key);
-
+class TabsPage extends StatefulWidget {
+  
+  TabsPage({Key key}) : super(key: key);
   @override
-  _TabsState createState() => _TabsState();
+  _TabsPageState createState() => _TabsPageState();
+  
 }
 
-class _TabsState extends State<Tabs> {
+class _TabsPageState extends State<TabsPage> {
+
+  
   int _currentIndex=0;
 
 
   List _pageList=[
-    HomePage(),
+    // HomePage(),
+    TravelPage(),
     XiaoxiPage(),
     FaBuPage(),
     ChatPage(),
-    MyPage(),
+    // MyPage(),
+    MinePage(),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Flutter Demo"),
-        ),
+        // appBar: AppBar(
+        //   title: Text("校园交友"),
+        // ),
         floatingActionButton: Container(
           height:80,
           width:80,
@@ -63,6 +70,7 @@ class _TabsState extends State<Tabs> {
           iconSize: 36.0,  // icon的大小
           fixedColor: Colors.green, //选中的颜色
           type:BottomNavigationBarType.fixed, //配置底部tabs可以有多个按钮
+          //type:BottomNavigationBarType.shifting,
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),

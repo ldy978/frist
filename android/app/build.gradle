@@ -39,11 +39,19 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.app01"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 28
+        multiDexEnabled false
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        
+       
+        manifestPlaceholders = [
+            JPUSH_PKGNAME : applicationId,
+            JPUSH_APPKEY : "f8f8571299b84a1640c1e4eb", // 极光上注册的包名对应的appkey.
+            JPUSH_CHANNEL : "developer-default",
+        ]
     }
 
     buildTypes {
@@ -64,4 +72,26 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    implementation "com.google.gms:google-services:3.3.1"
+    // compile 'cn.jiguang.sdk:jpush:3.1.0'  // 此处以JPush 3.1.0 版本为例。
+    // compile 'cn.jiguang.sdk:jcore:1.1.8'  // 此处以JCore 1.1.8 版本为例。
 }
+// buildscript{
+//     repositories {
+//         google()
+//         jcenter()
+//     }
+// }
+
+// allprojects {
+//     repositories {
+//         google()
+//         jcenter()
+//     }
+// }
+
+//Firebase
+apply plugin: 'com.google.gms.google-services'
+
+
+

@@ -29,3 +29,20 @@ subprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+//Firebase插件
+allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.google.gms:google-services:3.0.0'
+    }
+}

@@ -1,3 +1,6 @@
+import 'package:app01/pages/tabs/chat/gridview3.dart';
+import 'package:app01/pages/tabs/res/colors.dart';
+import 'package:app01/pages/tabs/res/styles.dart';
 import 'package:flutter/material.dart';
 
 class ChatRoomPage extends StatefulWidget {
@@ -8,34 +11,47 @@ class ChatRoomPage extends StatefulWidget {
 }
 
 class _ChatRoomPageState extends State<ChatRoomPage> {
-  List list=["images/5.gif","images/2.gif","images/3.gif","images/4.gif","images/5.gif","images/6.gif"];
+   final MyGridView3 myGridView = MyGridView3();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2, //一行多少个
-        childAspectRatio: 1,
-        crossAxisSpacing: 25, //左右间隔
-        mainAxisSpacing: 25.0, //上下间隔
-        
-        ),  //每个Item的长宽比列
-        itemCount: 6,
-        itemBuilder:(context,index){
-          return RaisedButton(
-            
-            elevation: 5.0,
-            padding: EdgeInsets.all(0),
-            color: Color.fromARGB(255, 207, 169, 114),
-            onPressed: (){
-            
-
-          },child:Image.asset(list[index]),
-          );
+      appBar: AppBar(  //顶部应用按钮组件
+        //底部阴影
+      elevation: 0.0,
+      backgroundColor: Colors.white,
+      leading: InkWell(
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        onTap: () {
+          Navigator.pushNamed(context, '/chat');
         },
-      
-       
+        child: Icon(
+          Icons.arrow_back_ios,
+          color: MColors.text_dark,
+        ),
+      ),
+      title: Text(
+        "校园陌陌",
+        style: MTextStyles.textBoldDark16,
+      ),
+      centerTitle: true,
+        actions: <Widget>[
+          //图标按钮
+          IconButton(
+            icon: Icon(Icons.search),
+            tooltip: '搜索',
+            onPressed: (){},
+            ),
+          IconButton(
+            icon: Icon(Icons.add), 
+            tooltip: '创建',
+            onPressed: (){},
+            ),
+        ],
 
-    ),
+      ),
+      body:myGridView.build(context),
     );
   }
 }

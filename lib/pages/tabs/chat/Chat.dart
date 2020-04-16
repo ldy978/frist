@@ -1,4 +1,7 @@
 import 'package:app01/pages/tabs/chat/ChatRoom.dart';
+import 'package:app01/pages/tabs/chat/gridview.dart';
+import 'package:app01/pages/tabs/res/colors.dart';
+import 'package:app01/pages/tabs/res/styles.dart';
 import 'package:flutter/material.dart';
 
 
@@ -10,36 +13,74 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  List list=["images/smile.gif","images/smile.gif"];
+  final MyGridView myGridView = MyGridView();
   @override
   Widget build(BuildContext context) {
    return Scaffold(
-     body:GridView.builder(
-       gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(
-         crossAxisCount: 2,//每行方济各item
-         childAspectRatio: 1//每个Item的长宽比例
-       ),
-       itemCount: 2,//构造几个Item
-       itemBuilder: (context,index){
-         return RaisedButton(
-           elevation: 5.0,//按钮的阴影
-           padding: EdgeInsets.all(0),//按钮上的文本距离按钮的边界的距离
-           color: Color.fromARGB(255, 207, 169, 114),//设置按钮的颜色
-           onPressed: (){
-             //长按按钮的事件
-             if(index==0){
-               Navigator.push(context, MaterialPageRoute(builder: (context) => ChatRoomPage())
-               );
-             }
-             if(index==1){
-               Navigator.pushNamed(context, '/');
-             }
-             
-         },
-         child: Image.asset(list[index]),
-         );
-       },
+     appBar: AppBar(
+       //底部阴影
+      elevation: 0.0,
+      backgroundColor: Colors.white,
+      leading: InkWell(
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        onTap: () {
+          Navigator.pushNamed(context, '/mine');
+        },
+        child: Icon(
+          Icons.arrow_back_ios,
+          color: MColors.text_dark,
+        ),
+      ),
+      title: Text(
+        "聊天室",
+        style: MTextStyles.textBoldDark16,
+      ),
+      centerTitle: true,
      ),
+     body:myGridView.build(context),
+    //  body:GridView.builder(
+    //    gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(
+         
+    //      crossAxisCount: 2,//每行方济各item
+    //      childAspectRatio: 0.85,//每个Item的长宽比例
+    //      crossAxisSpacing: 1, //左右间隔
+    //     mainAxisSpacing: 1.0, //上下间隔
+    //    ),
+    //    itemCount: 3,//构造几个Item
+    //    itemBuilder: (context,index){
+    //      return RaisedButton(
+    //        elevation: 10.0,//按钮的阴影
+    //        padding: EdgeInsets.all(0),//按钮上的文本距离按钮的边界的距离
+    //        onPressed: (){
+    //          //长按按钮的事件
+    //          if(index==0){
+    //            Navigator.pushNamed(context, '/yuanxi');
+    //          }
+    //          if(index==1){
+    //            Navigator.pushNamed(context, '/class');
+    //          } 
+    //          if(index==2){
+    //            Navigator.pushNamed(context, '/chatroom');
+    //          } 
+    //      },
+    //      child:Column(
+    //        children: <Widget>[
+    //          Image.asset(list[index]),
+    //          Text(list1[index],
+    //          style: TextStyle(
+    //           //  color:Colors.black,
+    //             fontSize:8.0,
+    //           //  fontStyle:FontStyle.italic,
+    //            fontWeight:FontWeight.bold,
+    //             letterSpacing: 4.0//文字间距
+    //          ),
+    //          )
+    //        ], 
+    //        ),
+    //      );
+    //    },
+    //  ),
      
    );
    }

@@ -17,22 +17,50 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+
+  flutter_staggered_grid_view: ^0.3.0
+  flutter_webview_plugin: ^0.3.8
+  #cached_network_image: ^1.1.1
+  flustars: ^0.2.6+1
+  cached_network_image: ^2.0.0-rc
+
   shared_preferences: ^0.5.1  
+
   dio: ^1.0.9
   json_annotation: ^2.0.0
   toast: ^0.1.5 
+  #jpush_flutter: 0.5.3
+  # leancloud_official_plugin: '1.0.0-beta.2'
+  #  jpush_flutter: 0.1.0 #极光推送
+  # jpush_flutter: 0.0.11
+  # jpush_flutter: 0.5.3
+  
+
+  # //github  集成
+  # jpush_flutter:
+  #   git:
+  #     url: git://github.com/jpush/jpush-flutter-plugin.git
+  #     ref: master
+
+  # Flutter 国际化/多语言库 https://github.com/Sky24n/fluintl
+  fluintl: ^0.1.2
+  # Toast插件 https://github.com/OpenFlutter/flutter_oktoast
+  oktoast: ^2.1.8
+
   flutter:
     sdk: flutter
-
+  flutter_swiper: ^1.1.4
+  
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
+  #flutter_jpush: ^0.0.4
+  #jpush_flutter: 0.5.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-
+image_picker: ^0.6.2+3
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -62,20 +90,45 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  fonts:
+    # - family: Schyler
+    #   fonts:
+    #     - asset: fonts/Schyler-Regular.ttf
+    #     - asset: fonts/Schyler-Italic.ttf
+    #       style: italic
+    # - family: Trajan Pro
+    #   fonts:
+    #     - asset: fonts/TrajanPro.ttf
+    #     - asset: fonts/TrajanPro_Bold.ttf
+    #       weight: 700
+  
+    - family: Raleway
+    #   fonts:
+    #     - asset: assets/fonts/Raleway-Regular.ttf
+    #     - asset: assets/fonts/Raleway-Medium.ttf
+    #       weight: 500
+    #     - asset: assets/fonts/Raleway-SemiBold.ttf
+    #       weight: 600
+    # - family: AbrilFatface
+    #   fonts:
+    #     - asset: assets/fonts/abrilfatface/AbrilFatface-Regular.ttf
+
+    # - family: Lobster
+    #   fonts:
+    #     - asset: assets/fonts/Lobster-Lobster.ttf
+    #     - asset: assets/fonts/Lobster-Medium.ttf
+    #       weight: 500
+    #     - asset: assets/fonts/Lobster-SemiBold.ttf
+    #       weight: 600
+    # - family: AbrilFatface
+    #   fonts:
+    #     - asset: assets/fonts/abrilfatface/AbrilFatface-Lobster.ttf
+  
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  
+  
   assets:
    - images/my.png
    - images/xiaoxi.png
@@ -89,3 +142,18 @@ flutter:
    - images/4.gif
    - images/5.gif
    - images/6.gif
+   - images/loading.jpg
+   - images/a0.jpg
+   - images/a1.jpg
+   - images/a2.jpg
+   - images/a3.jpg
+   - images/a4.jpg
+   - images/a5.jpg
+   - images/a6.jpg
+   - images/a7.jpg
+   - images/a8.jpg
+   - images/a9.jpg
+   - images/a10.jpg
+   - images/ic_action_collection.png
+   - images/ic_action_comment.png
+   - images/avatar.jpeg
