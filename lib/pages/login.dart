@@ -20,41 +20,40 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       body: Container(
-         decoration: BoxDecoration(
-           image:DecorationImage(
-             image:AssetImage("images/bg.jpg"),
-             fit:BoxFit.cover,
-           ),
-         ),
-         child: ListView(
-           padding: EdgeInsets.symmetric(horizontal:22.0 ),
-           children: <Widget>[
-             SizedBox(
-               height: 280.0,
-             ),
-             Container(
-               padding: EdgeInsets.symmetric(horizontal: 20.0),
-               child: TextField(
-                 keyboardType: TextInputType.number,
-                 style:TextStyle(color: Colors.black),
-                 controller:  _controller_user,
-                 decoration: InputDecoration(
-                   hintText: "请输入学工号",
-                   hintStyle: TextStyle(color: Colors.black),
-                   border: InputBorder.none,
-                   icon: Icon(Icons.person,color: Colors.black)),
-                   inputFormatters: <TextInputFormatter>[
-                     WhitelistingTextInputFormatter.digitsOnly,//只输入数字
-                     LengthLimitingTextInputFormatter(8)//限制长度
-
-                   ],
-             )),
-               Container(
-                 child: Divider(
-                   color: Colors.black,
-                 ),
-                 padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 10.0),
+      body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("images/bg.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: ListView(
+            padding: EdgeInsets.symmetric(horizontal: 22.0),
+            children: <Widget>[
+              SizedBox(
+                height: 280.0,
+              ),
+              Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: TextField(
+                    keyboardType: TextInputType.number,
+                    style: TextStyle(color: Colors.black),
+                    controller: _controller_user,
+                    decoration: InputDecoration(
+                        hintText: "请输入学工号",
+                        hintStyle: TextStyle(color: Colors.black),
+                        border: InputBorder.none,
+                        icon: Icon(Icons.person, color: Colors.black)),
+                    inputFormatters: <TextInputFormatter>[
+                      WhitelistingTextInputFormatter.digitsOnly, //只输入数字
+                      LengthLimitingTextInputFormatter(8) //限制长度
+                    ],
+                  )),
+              Container(
+                child: Divider(
+                  color: Colors.black,
+                ),
+                padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 10.0),
               ),
               Container(
                   padding: EdgeInsets.symmetric(horizontal: 20.0),

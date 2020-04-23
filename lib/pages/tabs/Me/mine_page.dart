@@ -133,7 +133,7 @@ class _MinePageState extends State<MinePage> {
                 children: <Widget>[
                   new GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '');
+                      Navigator.pushNamed(context, '/care');
                     },
                     child: new Container(
                       alignment: Alignment.center,

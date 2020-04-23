@@ -1,3 +1,5 @@
+import 'package:app01/pages/tabs/Home/Home.dart';
+import 'package:app01/pages/tabs/Home/One.dart';
 import 'package:app01/pages/tabs/Home/travel_page.dart';
 import 'package:app01/pages/tabs/Me/mine_page.dart';
 import 'package:flutter/material.dart';
@@ -22,14 +24,18 @@ class _TabsPageState extends State<TabsPage> {
 
 
   List _pageList=[
-    // HomePage(),
-    TravelPage(),
+    OnePage(),
+     //HomePage(),
+    //TravelPage(),
     XiaoxiPage(),
     FaBuPage(),
     ChatPage(),
     // MyPage(),
     MinePage(),
   ];
+  final _bottomNavigationTextColor = Colors.black; // 导航字体颜色
+  final _bottomNavigationIconColor = Colors.black; // 导航默认图标颜色
+  final _bottomNavigationActiveIconColor = Colors.deepOrange; // 导航选中图标颜色
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,24 +79,27 @@ class _TabsPageState extends State<TabsPage> {
           //type:BottomNavigationBarType.shifting,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text("首页")
+            backgroundColor: Colors.white,
+            icon: new Icon(Icons.home, color:_bottomNavigationIconColor),
+            title: new Text("首页",style: TextStyle(color: _bottomNavigationTextColor)),
+            ),
+            new BottomNavigationBarItem(
+            icon: new Icon(Icons.message, color: _bottomNavigationIconColor),
+            title: new Text("消息",style: TextStyle(color: _bottomNavigationTextColor)),
+          ),
+             new BottomNavigationBarItem(
+            icon: new Icon(
+              Icons.add,color: _bottomNavigationIconColor
+            ),
+            title: new Text("发布",style: TextStyle(color: _bottomNavigationTextColor)),
+          ),
+            BottomNavigationBarItem(
+              icon:Icon(Icons.contacts,color: _bottomNavigationIconColor),
+              title: Text("聊天室",style: TextStyle(color: _bottomNavigationTextColor))
             ),
             BottomNavigationBarItem(
-              icon:Icon(Icons.message),
-              title: Text("消息")
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.chat),
-              title:Text("发布")
-            ),
-            BottomNavigationBarItem(
-              icon:Icon(Icons.contacts),
-              title: Text("聊天室")
-            ),
-            BottomNavigationBarItem(
-              icon:Icon(Icons.account_circle),
-              title: Text("我的")
+              icon:Icon(Icons.account_circle,color: _bottomNavigationIconColor),
+              title: Text("我的",style: TextStyle(color: _bottomNavigationTextColor))
             ),
           ],
 

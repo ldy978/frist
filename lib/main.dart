@@ -5,6 +5,7 @@ import 'package:app01/pages/login.dart';
 import 'package:app01/pages/splash_page.dart';
 import 'package:app01/pages/tabs/ChatMessage.dart';
 import 'package:app01/pages/tabs/Me/About.dart';
+import 'package:app01/pages/tabs/Me/Care.dart';
 import 'package:app01/pages/tabs/Me/Foot.dart';
 import 'package:app01/pages/tabs/Me/Name.dart';
 import 'package:app01/pages/tabs/Me/PeopleMessage.dart';
@@ -39,6 +40,7 @@ final SystemUiOverlayStyle _style =SystemUiOverlayStyle(statusBarColor: Colors.t
     SystemChrome.setSystemUIOverlayStyle(_style);
     return OKToast(
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,//去掉debug图标
         title: 'Flutter Mvp',
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -62,6 +64,7 @@ final SystemUiOverlayStyle _style =SystemUiOverlayStyle(statusBarColor: Colors.t
           '/qianming': (BuildContext context) => QianMingPage(),
           '/liaotian': (BuildContext context) => LiaoTianPage(),
           '/mine': (BuildContext context) => MinePage(),
+          '/care': (BuildContext context) => CarePage(),
         },
       ),
       backgroundColor: Colors.black54,

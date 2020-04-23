@@ -21,17 +21,7 @@ class _ChatPageState extends State<ChatPage> {
        //底部阴影
       elevation: 0.0,
       backgroundColor: Colors.white,
-      leading: InkWell(
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-        onTap: () {
-          Navigator.pushNamed(context, '/mine');
-        },
-        child: Icon(
-          Icons.arrow_back_ios,
-          color: MColors.text_dark,
-        ),
-      ),
+      
       title: Text(
         "聊天室",
         style: MTextStyles.textBoldDark16,

@@ -29,7 +29,7 @@ class _TravelPageState extends State<TravelPage> {
         ),
       ),
       title: Text(
-        "我的足迹",
+        "我的行程",
         style: MTextStyles.textBoldDark16,
       ),
       centerTitle: true,
