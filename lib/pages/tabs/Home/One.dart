@@ -24,7 +24,7 @@ class _OnePageState extends State<OnePage>with SingleTickerProviderStateMixin {
     super.initState();
     //初始化控制器
     _tabController = TabController(
-        length: 2, //Tab页的个数
+        length: 3, //Tab页的个数
         vsync: this //动画效果的异步处理，默认格式;
         );
   }
@@ -42,10 +42,10 @@ class _OnePageState extends State<OnePage>with SingleTickerProviderStateMixin {
           title: Flex( //容器，比例摆放，
             direction: Axis.horizontal,
             children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: Row(),
-              ),
+              // Expanded(
+              //   flex: 1,
+              //   child: Row(),
+              // ),
               Expanded(//这个是为了 让俩中间的导航不至于太过分散
               flex: 3,
                 child: TabBar(
@@ -55,12 +55,12 @@ class _OnePageState extends State<OnePage>with SingleTickerProviderStateMixin {
                   indicatorPadding: EdgeInsets.only(left: 40, right: 40),
                   //指示器的大小 label：指示器根据图片的大小决定，tab：指示器铺满
                   indicatorSize: TabBarIndicatorSize.tab,
-                  indicatorWeight: 2,
+                  indicatorWeight: 3,
                   //指示器
                   tabs: <Widget>[
                     Text("校外动态"),
                     Text("校内动态"),
-                    //  Text("校园新闻"),
+                    Text("校园新闻"),
                     // Tab(
                     //   icon: Icon(Icons.music_note),
                     // ),
@@ -72,16 +72,16 @@ class _OnePageState extends State<OnePage>with SingleTickerProviderStateMixin {
                   controller: _tabController,
                 ),
               ),
-              Expanded(//这个是为了 让俩中间的导航不至于太过分散
-                flex: 1,
-                child: Row(),
-              ),
+              // Expanded(//这个是为了 让俩中间的导航不至于太过分散
+              //   flex: 1,
+              //   child: Row(),
+              // ),
             ],)
             ),
              body: TabBarView(controller: _tabController, children: <Widget>[
       new Text('第一页'),
       new Text('第二页'),
-      // new Text("data"),
+      new Text("data"),
       ]),
       );
   }
