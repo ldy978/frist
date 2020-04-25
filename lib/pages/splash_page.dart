@@ -6,6 +6,7 @@ import 'package:app01/pages/tabs/res/gaps.dart';
 import 'package:app01/pages/tabs/res/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // import 'package:flutter_mvp/routers/fluro_navigator.dart';
 // import 'package:flutter_mvp/ui/home/home_router.dart';
@@ -21,21 +22,34 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   StreamSubscription _subscription;
   String appVersion = "v 1.0.0";
-  
-  startTime() async {
-    //设置启动图生效时间
-    var _duration = new Duration(seconds: 1);
-    return new Timer(_duration, navigationPage);
-  }
+  var flag;
+  // startTime() async {
+  //   //设置启动图生效时间
+  //   var _duration = new Duration(seconds: 1);
+  //   return new Timer(_duration, navigationPage);
+  // }
 
-  void navigationPage() {
-    Navigator.of(context).pushReplacementNamed('/tab');
-  }
+  // void navigationPage() {
+  //   SharedPreferences prefs = SharedPreferences.getInstance() as SharedPreferences;
+  //   prefs.getString("account")!=null?Navigator.of(context).pushReplacementNamed('/login'): Navigator.of(context).pushReplacementNamed('/login');
+  // }
 
-  @override
-  void initState() {
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   startTime();
+  // }
+  void initState() { 
     super.initState();
-    startTime();
+    init();
+    Future.delayed(Duration(seconds:3),(){
+         (flag!=null&&flag!="")? Navigator.of(context).pushReplacementNamed('/tab'):Navigator.of(context).pushReplacementNamed('/login');
+      
+    });
+  }
+  init() async {
+    final prefs = await SharedPreferences.getInstance();
+    flag=prefs.getString("account");
   }
   @override
   Widget build(BuildContext context) {

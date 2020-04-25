@@ -45,7 +45,7 @@ final SystemUiOverlayStyle _style =SystemUiOverlayStyle(statusBarColor: Colors.t
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: SplashPage(),
+        
         //路由配置
         routes: <String, WidgetBuilder>{
           '/tab': (BuildContext context) => TabsPage(),
@@ -66,6 +66,7 @@ final SystemUiOverlayStyle _style =SystemUiOverlayStyle(statusBarColor: Colors.t
           '/mine': (BuildContext context) => MinePage(),
           '/care': (BuildContext context) => CarePage(),
         },
+        home: SplashPage(),
       ),
       backgroundColor: Colors.black54,
       textPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),

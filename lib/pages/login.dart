@@ -91,24 +91,21 @@ class _LoginPageState extends State<LoginPage> {
                             duration: Toast.LENGTH_SHORT,
                             gravity: Toast.BOTTOM);
                         print("执行登录代码");
-
-                        FormData params = new FormData.from({
-                          'name': _controller_user.text,
-                          'pasd': _controller_pwd.text,
-                          'numb': 'mxxzx'
-                        });
-
                         Dio dio = new Dio();
+                        Map<String, String> map = {
+                          'name': _controller_user.text.toString(),
+                          'pasd': _controller_pwd.text.toString()
+                        };
+                        FormData formData = FormData.fromMap(map);
+                        print(formData);
                         Response response = await dio.post(
-                            "https://xxzx.bjtuhbxy.edu.cn/login/main",
-                            data: params);
-
+                          "https://xxzx.bjtuhbxy.edu.cn/login/main/ios",
+                          data: formData,
+                        );
                         if (response.statusCode == 200) {
                           if (json.decode(response.data)["login_flag"] == 1) {
                             //登录成功
                             final prefs = await SharedPreferences.getInstance();
-                            print("XCCCCCCCCCCCCCCCCCCCC" +
-                                response.data.toString());
                             prefs.setString('account',
                                 json.decode(response.data)["account"]);
                             prefs.setString(
@@ -116,6 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                             prefs.setString(
                                 'name', json.decode(response.data)["name"]);
                             print(prefs.getString("name"));
+                            Navigator.of(context).pushReplacementNamed('/tab');
                           } else {
                             // Toast.show(json.decode(response.data)["error"], context,
                             // duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
@@ -141,8 +139,4 @@ class _LoginPageState extends State<LoginPage> {
           )),
     );
   }
-}
-
-class Dio {
-  post(String s, {FormData data}) {}
 }

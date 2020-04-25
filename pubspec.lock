@@ -71,13 +71,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.1"
-  cookie_jar:
-    dependency: transitive
-    description:
-      name: cookie_jar
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.0.8"
   crypto:
     dependency: transitive
     description:
@@ -105,7 +98,7 @@ packages:
       name: dio
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.17"
+    version: "3.0.9"
   file:
     dependency: transitive
     description:
