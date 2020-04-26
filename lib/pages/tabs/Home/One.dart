@@ -1,3 +1,6 @@
+import 'package:app01/pages/tabs/Home/Home.dart';
+import 'package:app01/pages/tabs/Home/Index.dart';
+import 'package:app01/pages/tabs/Home/travel_page.dart';
 import 'package:app01/pages/tabs/res/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -79,9 +82,11 @@ class _OnePageState extends State<OnePage>with SingleTickerProviderStateMixin {
             ],)
             ),
              body: TabBarView(controller: _tabController, children: <Widget>[
-      new Text('第一页'),
+      TravelPage(),
+      
       new Text('第二页'),
-      new Text("data"),
+      IndexPage(),
+      //new Text("data"),
       ]),
       );
   }

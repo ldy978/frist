@@ -2,14 +2,14 @@ import 'package:app01/pages/tabs/res/colors.dart';
 import 'package:app01/pages/tabs/res/styles.dart';
 import 'package:flutter/material.dart';
 
-class TravelPage extends StatefulWidget {
-  TravelPage({Key key}) : super(key: key);
+class TravelPage1 extends StatefulWidget {
+  TravelPage1({Key key}) : super(key: key);
 
   @override
-  _TravelPageState createState() => _TravelPageState();
+  _TravelPage1State createState() => _TravelPage1State();
 }
 
-class _TravelPageState extends State<TravelPage> {
+class _TravelPage1State extends State<TravelPage1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

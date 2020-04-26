@@ -115,8 +115,8 @@ class _LoginPageState extends State<LoginPage> {
                             print(prefs.getString("name"));
                             Navigator.of(context).pushReplacementNamed('/tab');
                           } else {
-                            // Toast.show(json.decode(response.data)["error"], context,
-                            // duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+                            Toast.show(json.decode(response.data)["error"], context,
+                            duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
                           }
                         } else {
                           print("HHERROR" + response.statusCode.toString());

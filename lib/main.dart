@@ -4,6 +4,8 @@ import 'package:app01/controller/socket_manger.dart';
 import 'package:app01/pages/login.dart';
 import 'package:app01/pages/splash_page.dart';
 import 'package:app01/pages/tabs/ChatMessage.dart';
+import 'package:app01/pages/tabs/Home/Index.dart';
+import 'package:app01/pages/tabs/Home/travel_page.dart';
 import 'package:app01/pages/tabs/Me/About.dart';
 import 'package:app01/pages/tabs/Me/Care.dart';
 import 'package:app01/pages/tabs/Me/Foot.dart';
@@ -54,7 +56,7 @@ final SystemUiOverlayStyle _style =SystemUiOverlayStyle(statusBarColor: Colors.t
           '/yuanxi': (BuildContext context) => YuanXiPage(),
           '/class': (BuildContext context) => ClassPage(),
           '/about': (BuildContext context) => AboutPage(),
-          '/travel': (BuildContext context) => TravelPage(),
+          '/travel': (BuildContext context) => TravelPage1(),
           '/foot': (BuildContext context) => FootPage(),
           '/peoplemessage': (BuildContext context) => PeopleMessagePage(),
           '/search': (BuildContext context) => SearchPage(),
@@ -65,6 +67,8 @@ final SystemUiOverlayStyle _style =SystemUiOverlayStyle(statusBarColor: Colors.t
           '/liaotian': (BuildContext context) => LiaoTianPage(),
           '/mine': (BuildContext context) => MinePage(),
           '/care': (BuildContext context) => CarePage(),
+         '/travel_page': (BuildContext context) => TravelPage(),
+         '/index': (BuildContext context) => IndexPage(),
         },
         home: SplashPage(),
       ),
