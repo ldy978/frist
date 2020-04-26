@@ -2,6 +2,7 @@ import 'package:app01/pages/tabs/res/colors.dart';
 import 'package:app01/pages/tabs/res/gaps.dart';
 import 'package:app01/pages/tabs/res/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MinePage extends StatefulWidget {
   @override
@@ -41,7 +42,6 @@ class _MinePageState extends State<MinePage> {
         alignment: Alignment.topCenter,
         child: Column(
           children: <Widget>[
-            Gaps.vGap40,
             Container(
               height: 80.0,
               width: 80.0,
@@ -122,7 +122,7 @@ class _MinePageState extends State<MinePage> {
                 ],
               ),
             ),
-            Gaps.vGap16,
+            //Gaps.vGap16,
             Divider(
               color: MColors.gray_9a,
               thickness: 0.5,
@@ -192,6 +192,22 @@ class _MinePageState extends State<MinePage> {
                       height: 50.0,
                       child: Text(
                         '关于',
+                        style: MTextStyles.textGray14,
+                      ),
+                    ),
+                  ),
+                  new GestureDetector(
+                    onTap: () async {
+                      final prefs = await SharedPreferences.getInstance();
+                      prefs.clear();
+                      prefs.remove("account");
+                      Navigator.of(context).pushReplacementNamed('/login');
+                    },
+                    child: new Container(
+                      alignment: Alignment.center,
+                      height: 50.0,
+                      child: Text(
+                        '退出',
                         style: MTextStyles.textGray14,
                       ),
                     ),
