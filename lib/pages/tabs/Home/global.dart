@@ -14,4 +14,5 @@ class Global {
   static String avator_img_url =  "https://img2.woyaogexing.com/2019/12/28/ebc0f9f2e4bd498283d51d96f878f391!400x400.jpeg";
   static String app_url = "https://www.hbxy.xyz/";
   static String protrol_url = "https://www.hbxy.xyz/jwxt/tiaoKuan.html";
+  static String xiaonei_url = "http://192.168.1.107:8080/admin.php?c=News&a=index";
 }

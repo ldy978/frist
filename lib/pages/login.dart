@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:app01/pages/tabs/Home/global.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -112,6 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                                 'secret', json.decode(response.data)["secret"]);
                             prefs.setString(
                                 'name', json.decode(response.data)["name"]);
+                            Global.account = _controller_user.text.toString();
                             print(prefs.getString("name"));
                             Navigator.of(context).pushReplacementNamed('/tab');
                           } else {

@@ -25,7 +25,7 @@ class _YuanXiPageState extends State<YuanXiPage> {
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
           onTap: () {
-            Navigator.pushNamed(context, '/mine');
+            Navigator.pop(context);
           },
           child: Icon(
             Icons.arrow_back_ios,

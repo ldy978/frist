@@ -21,7 +21,7 @@ class _FootPageState extends State<FootPage> {
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
         onTap: () {
-          Navigator.pushNamed(context, '/mine');
+          Navigator.pop(context);
         },
         child: Icon(
           Icons.arrow_back_ios,

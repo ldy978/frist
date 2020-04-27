@@ -1,6 +1,7 @@
 import 'package:app01/pages/tabs/Home/Home.dart';
 import 'package:app01/pages/tabs/Home/Index.dart';
 import 'package:app01/pages/tabs/Home/travel_page.dart';
+import 'package:app01/pages/tabs/Home/xiaonei.dart';
 import 'package:app01/pages/tabs/res/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -11,11 +12,11 @@ class OnePage extends StatefulWidget {
   _OnePageState createState() => _OnePageState();
 }
 
-class _OnePageState extends State<OnePage>with SingleTickerProviderStateMixin {
+class _OnePageState extends State<OnePage> with SingleTickerProviderStateMixin {
   //Tab页的控制器，可以用来定义Tab标签和内容页的坐标
   TabController _tabController;
 
-   @override
+  @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
@@ -36,21 +37,23 @@ class _OnePageState extends State<OnePage>with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 10,
-        backgroundColor: Colors.green,
-      //    title: Text(
-      //   "聊天室",
-      //   style: MTextStyles.textBoldDark16,
-      // ),
-          title: Flex( //容器，比例摆放，
+          elevation: 10,
+          backgroundColor: Colors.green,
+          //    title: Text(
+          //   "xxx",
+          //   style: MTextStyles.textBoldDark16,
+          // ),
+          title: Flex(
+            //容器，比例摆放，
             direction: Axis.horizontal,
             children: <Widget>[
               // Expanded(
               //   flex: 1,
               //   child: Row(),
               // ),
-              Expanded(//这个是为了 让俩中间的导航不至于太过分散
-              flex: 3,
+              Expanded(
+                //这个是为了 让俩中间的导航不至于太过分散
+                flex: 3,
                 child: TabBar(
                   //指示器颜色
                   indicatorColor: Colors.red,
@@ -64,13 +67,6 @@ class _OnePageState extends State<OnePage>with SingleTickerProviderStateMixin {
                     Text("校外动态"),
                     Text("校内动态"),
                     Text("校园新闻"),
-                    // Tab(
-                    //   icon: Icon(Icons.music_note),
-                    // ),
-                    // Tab(
-                    //   icon: Icon(Icons.queue_music),
-                    // ),
-                    
                   ],
                   controller: _tabController,
                 ),
@@ -79,15 +75,14 @@ class _OnePageState extends State<OnePage>with SingleTickerProviderStateMixin {
               //   flex: 1,
               //   child: Row(),
               // ),
-            ],)
-            ),
-             body: TabBarView(controller: _tabController, children: <Widget>[
-      TravelPage(),
-      
-      new Text('第二页'),
-      IndexPage(),
-      //new Text("data"),
+            ],
+          )),
+      body: TabBarView(controller: _tabController, children: <Widget>[
+        TravelPage(),
+        xiaonei(),
+        IndexPage(),
+        //new Text("data"),
       ]),
-      );
+    );
   }
 }

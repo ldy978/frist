@@ -1,4 +1,3 @@
-import 'package:app01/pages/tabs/res/colors.dart';
 import 'package:flutter/material.dart';
 
 class PeopleMessagePage extends StatefulWidget {
@@ -50,17 +49,17 @@ class _PeopleMessageState extends State<PeopleMessagePage> {
         //底部阴影
         elevation: 0.0,
         backgroundColor: Colors.white,
-        leading: InkWell(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          onTap: () {
-            Navigator.pushNamed(context, '/mine');
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: MColors.text_dark,
-          ),
-        ),
+        // leading: InkWell(
+        //   splashColor: Colors.transparent,
+        //   highlightColor: Colors.transparent,
+        //   onTap: () {
+        //     Navigator.pushNamed(context, '/mine');
+        //   },
+        //   child: Icon(
+        //     Icons.arrow_back_ios,
+        //     color: MColors.text_dark,
+        //   ),
+        // ),
         title: Text('个人中心'),
       ),
       body: ListView(

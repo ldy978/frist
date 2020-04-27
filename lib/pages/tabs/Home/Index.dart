@@ -6,6 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:transparent_image/transparent_image.dart';
 // import 'package:hbzs/common/global.dart';
 // import 'package:hbzs/res/Browser.dart';
 // import 'package:hbzs/res/MyDrawer.dart';
@@ -84,10 +85,10 @@ class _IndexPageState extends State<IndexPage> {
                 //   item['news_img'],
                 //   fit: BoxFit.cover,
                 // ),
-                // FadeInImage.memoryNetwork(
-                //   placeholder: kTransparentImage,
-                //   image: item['news_img'],
-                // ),
+                 FadeInImage.memoryNetwork(
+                   placeholder: kTransparentImage,
+                   image: item['news_img'],
+                 ),
                 new Margin(indent: 6.0),
                 new Text(
                   item['content'],
@@ -104,30 +105,7 @@ class _IndexPageState extends State<IndexPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Scaffold(
-          backgroundColor: Colors.white,
-          drawer: MyDrawer(),
-          //backgroundColor: Colors.white,
-          appBar: AppBar(
-            iconTheme: IconThemeData(color: Colors.black),
-            backgroundColor: Colors.white,
-            actions: <Widget>[
-              // IconButton(
-              //   icon: Icon(Icons.add),
-              //   color: Colors.black,
-              //   onPressed: () {
-              //     print("打开发布动态页面");
-              //     Navigator.pushNamed(context, '/send');
-              //   },
-              // )
-            ],
-            title: Text(
-              "首页",
-              style: TextStyle(color: Colors.black),
-            ),
-            centerTitle: true,
-          ),
-          body: SingleChildScrollView(
+      body: SingleChildScrollView(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -135,7 +113,7 @@ class _IndexPageState extends State<IndexPage> {
               BigDivider(),
               buildGrid(),
             ],
-          ))),
+          ))
     );
   }
 }
