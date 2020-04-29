@@ -13,7 +13,6 @@ class _ChatMessagePageState extends State<ChatMessagePage> {
 
   @override
 
-
   //创建消息输入框组件
 //   Widget textComposerWight(){
 //     return IconTheme(
@@ -63,5 +62,6 @@ class _ChatMessagePageState extends State<ChatMessagePage> {
 //               }
               
 // 
+
   noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }

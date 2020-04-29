@@ -2,6 +2,7 @@ import 'package:app01/controller/socket_manger.dart';
 import 'package:app01/pages/tabs/ChatMessage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:toast/toast.dart';
 
 class LiaoTianPage extends StatefulWidget {
   LiaoTianPage({Key key}) : super(key: key);
@@ -61,12 +62,10 @@ class _LiaoTianPageState extends State<LiaoTianPage>
               new Flexible(
                   child: new TextField(
                 controller: _textController,
-                onChanged: (String text){//在用户与该字段交互时通知文本的更改
-                  setState(() {
-                    _isComposing=text.length>0;
-                  });
+                onEditingComplete:(){//在用户与该字段交互时通知文本的更改
+                    this._isComposing=_textController.text.length>0;
                 },
-                onSubmitted: _handleSubmitted,
+                //onSubmitted: _handleSubmitted,
                 decoration: new InputDecoration.collapsed(hintText: "发送消息"),
               )),
               new Container(
@@ -74,7 +73,7 @@ class _LiaoTianPageState extends State<LiaoTianPage>
                 child: new IconButton(
                     icon: new Icon(Icons.send),
                     //如果字段长度大于0 就发送数据
-                    onPressed: _isComposing?send(_textController.text):null
+                    onPressed: (){send(_textController.text);}
                     //在Dart语法中，=>函数声明=> expression是{ return expression; }的缩写。
                     ),
               )
@@ -83,7 +82,7 @@ class _LiaoTianPageState extends State<LiaoTianPage>
   }
   send (a){
     sendMesaage(a);
-    return _handleSubmitted(_textController.text);
+    return a.length>0?_handleSubmitted(_textController.text):Toast.show("不能发送空消息", context);
   }
   sendMesaage(a){
     print(a);
