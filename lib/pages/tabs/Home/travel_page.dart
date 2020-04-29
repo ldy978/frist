@@ -48,12 +48,12 @@ class _TravelPageState extends State<TravelPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
+
+    return  Column(
         children: <Widget>[
           Container(
             color: Colors.white,
-            padding: EdgeInsets.only(top: 30),
+            // padding: EdgeInsets.only(top: 30),
             child: TabBar(
                 controller: _controller,
                 isScrollable: true,
@@ -81,7 +81,7 @@ class _TravelPageState extends State<TravelPage>
                 }).toList()),
           )
         ],
-      ),
+      
     );
   }
 }
