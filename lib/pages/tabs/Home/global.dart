@@ -15,4 +15,7 @@ class Global {
   static String create_room = "http://"+host+":8080/admin.php?c=Room&a=create";
   static String get_room = "http://"+host+":8080/admin.php?c=Room&a=get";
   static bool debug = true;
+  static String current_room_id;
+
+  static String current_room_name;
 }

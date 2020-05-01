@@ -1,5 +1,4 @@
 import 'package:app01/pages/tabs/Home/global.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 class MyGridView3 {
   ListRoom(BuildContext context,roomList) {
@@ -8,26 +7,19 @@ class MyGridView3 {
     for (var item in roomList) {
       print(item["name"]);
       array.add(
-          getStructuredGridCell(context,item["name"], item["img_url"],item["intro"])
+          getStructuredGridCell(context,item["name"], item["img_url"],item["intro"],item["id"])
       );
     }
     return array;
   }
 
-  GestureDetector getStructuredGridCell(context,String  name, String image,String intro) {
+  GestureDetector getStructuredGridCell(context,String  name, String image,String intro,String id) {
     // Wrap the child under GestureDetector to setup a on click action
     return GestureDetector(
       onTap: () {
-        print("onTap called." + name);
-        if (name == "院系陌陌") {
-          Navigator.pushNamed(context, '/yuanxi');
-        }
-        if (name == "班级陌陌") {
-          Navigator.pushNamed(context, '/class');
-        }
-        if (name == "校园陌陌") {
-          Navigator.pushNamed(context, '/chatroom');
-        }
+        Global.current_room_id=id;
+        Global.current_room_name=name;
+        Navigator.pushNamed(context, '/liaotian');
       },
       child: Card(
           elevation: 1.5,

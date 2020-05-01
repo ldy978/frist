@@ -1,30 +1,35 @@
+import 'dart:async';
+
 import 'package:app01/controller/socket_manger.dart';
 import 'package:app01/pages/tabs/ChatMessage.dart';
+import 'package:app01/pages/tabs/Home/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:toast/toast.dart';
 
 class LiaoTianPage extends StatefulWidget {
   LiaoTianPage({Key key}) : super(key: key);
-
   @override
   _LiaoTianPageState createState() => _LiaoTianPageState();
 }
 
 class _LiaoTianPageState extends State<LiaoTianPage>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin{
       
   final List<ChatMessage> _messages = <ChatMessage>[];
   final TextEditingController _textController = new TextEditingController();
-  bool _isComposing=false;//根据该字段是否包含要发送的文本来决定是否启用发送按钮，并更改按钮的外观
+  bool _isComposing=false;
+
+    //根据该字段是否包含要发送的文本来决定是否启用发送按钮，并更改按钮的外观
 
   @override
   void initState() { 
     super.initState();
-    SocketManage.initSocket();
-    List<int> a=[1024];    //请求参数    
-    SocketManage.mStream.listen(onReceiver);
-    SocketManage.addParams(a);
+    
+    // SocketManage.initSocket();
+    // List<int> a=[1024];    //请求参数    
+    // SocketManage.mStream.listen(onReceiver);
+    // SocketManage.addParams(a);
   }
 
   void onReceiver(List<int> event) {
@@ -96,7 +101,7 @@ class _LiaoTianPageState extends State<LiaoTianPage>
     return new Scaffold(
         appBar: new AppBar(
           backgroundColor: Colors.green,
-          title: new Text("谈天说地"),
+          title: new Text(Global.current_room_name),
         ),
         body: new Column(children: <Widget>[
           new Flexible(
@@ -153,5 +158,11 @@ class ChatMessage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() { 
+    Global.current_room_name=null;
+    Global.current_room_id=null;
   }
 }
