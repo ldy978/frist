@@ -70,7 +70,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                   }
                 },
                 child: new Text(
-                  "创建",
+                  "创建", 
                 ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
