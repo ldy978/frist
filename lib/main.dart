@@ -7,7 +7,6 @@ import 'package:app01/pages/tabs/Home/Index.dart';
 import 'package:app01/pages/tabs/Home/shiwu.dart';
 import 'package:app01/pages/tabs/Home/travel_page.dart';
 import 'package:app01/pages/tabs/Me/About.dart';
-import 'package:app01/pages/tabs/Me/Care.dart';
 import 'package:app01/pages/tabs/Me/Foot.dart';
 import 'package:app01/pages/tabs/Me/Name.dart';
 import 'package:app01/pages/tabs/Me/PeopleMessage.dart';
@@ -16,6 +15,7 @@ import 'package:app01/pages/tabs/Me/Search.dart';
 import 'package:app01/pages/tabs/Me/Setting.dart';
 import 'package:app01/pages/tabs/Me/Travel.dart';
 import 'package:app01/pages/tabs/Me/mine_page.dart';
+import 'package:app01/pages/tabs/Me/shibie.dart';
 import 'package:app01/pages/tabs/chat/ChatRoom.dart';
 import 'package:app01/pages/tabs/chat/Class.dart';
 import 'package:app01/pages/tabs/chat/CreateRoom.dart';
@@ -66,12 +66,13 @@ final SystemUiOverlayStyle _style =SystemUiOverlayStyle(statusBarColor: Colors.t
           '/qianming': (BuildContext context) => QianMingPage(),
           '/liaotian': (BuildContext context) => LiaoTianPage(),
           '/mine': (BuildContext context) => MinePage(),
-          '/care': (BuildContext context) => CarePage(),
+          
          '/travel_page': (BuildContext context) => TravelPage(),
          '/index': (BuildContext context) => IndexPage(),
          '/fabu': (BuildContext context) => FaBuPage(),
          '/createroom': (BuildContext context) => CreateRoomPage(),
          '/shiwu': (BuildContext context) => shiwuPage(),
+         '/shibie': (BuildContext context) => shibiePage(),
         },
         home: SplashPage(),
       ),

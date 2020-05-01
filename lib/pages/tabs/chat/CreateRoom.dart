@@ -37,7 +37,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
         //顶部应用按钮组件
         //底部阴影
         elevation: 0.0,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.green,
         leading: InkWell(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
@@ -51,7 +51,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
         ),
         title: Text(
           "创建房间",
-          style: MTextStyles.textBoldDark16,
+          
         ),
         centerTitle: true,
         actions: <Widget>[

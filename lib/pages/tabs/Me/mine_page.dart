@@ -18,25 +18,16 @@ class _MinePageState extends State<MinePage> {
         backgroundColor: Colors.white,
         elevation: 0.0,
         leading: Container(),
-        // actions: <Widget>[
-          // InkWell(
-          //   focusColor: Colors.transparent,
-          //   highlightColor: Colors.transparent,
-          //   splashColor: Colors.transparent,
-          //   onTap: () {
-          //     // NavigatorUtils.push(context, AboutRouter.aboutPage,
-          //     //     replace: false);
-          //   },
-          //   child: Container(
-          //     margin: EdgeInsets.only(right: 12.0),
-          //     // child: Image.asset(
-          //     //   "images/ic_about.png",
-          //     //   height: 24.0,
-          //     //   width: 24.0,
-          //     // ),
-          //   ),
-          // ),
-        // ],
+        actions: <Widget>[
+          FlatButton.icon(
+            icon: Icon(Icons.accessibility_new),
+            label: Text("人像识别"),
+            onPressed: () {
+              Navigator.pushNamed(context, '/shibie');
+            },
+          ),
+         
+        ],
       ),
       body: Container(
         alignment: Alignment.topCenter,
@@ -131,19 +122,6 @@ class _MinePageState extends State<MinePage> {
             SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  new GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/care');
-                    },
-                    child: new Container(
-                      alignment: Alignment.center,
-                      height: 50.0,
-                      child: Text(
-                        '我的关注',
-                        style: MTextStyles.textGray14,
-                      ),
-                    ),
-                  ),
                   new GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(context, '/travel');

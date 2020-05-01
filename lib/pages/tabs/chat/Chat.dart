@@ -20,11 +20,11 @@ class _ChatPageState extends State<ChatPage> {
      appBar: AppBar(
        //底部阴影
       elevation: 0.0,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.green,
       
       title: Text(
         "聊天室",
-        style: MTextStyles.textBoldDark16,
+        
       ),
       centerTitle: true,
      ),

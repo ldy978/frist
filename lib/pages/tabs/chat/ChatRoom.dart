@@ -20,7 +20,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
         //顶部应用按钮组件
         //底部阴影
         elevation: 0.0,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.green,
         leading: InkWell(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
@@ -34,7 +34,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
         ),
         title: Text(
           "校园陌陌",
-          style: MTextStyles.textBoldDark16,
+          
         ),
         centerTitle: true,
         actions: <Widget>[

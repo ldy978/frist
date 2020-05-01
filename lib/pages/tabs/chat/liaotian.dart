@@ -95,6 +95,7 @@ class _LiaoTianPageState extends State<LiaoTianPage>
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: new AppBar(
+          backgroundColor: Colors.green,
           title: new Text("谈天说地"),
         ),
         body: new Column(children: <Widget>[

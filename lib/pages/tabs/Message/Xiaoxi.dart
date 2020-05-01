@@ -12,7 +12,8 @@ class XiaoxiPage extends StatefulWidget {
   _XiaoxiPageState createState() => _XiaoxiPageState();
 }
 
-class _XiaoxiPageState extends State<XiaoxiPage> with AutomaticKeepAliveClientMixin{
+class _XiaoxiPageState extends State<XiaoxiPage>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true; // 保持底部切换状态不变
 
@@ -32,6 +33,7 @@ class _XiaoxiPageState extends State<XiaoxiPage> with AutomaticKeepAliveClientMi
     });
     return completer.future;
   }
+
   @override
   initState() {
     // 状态数据初始化
@@ -50,29 +52,28 @@ class _XiaoxiPageState extends State<XiaoxiPage> with AutomaticKeepAliveClientMi
       return new ChatPage();
     }));
   }
+
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         //底部阴影
         elevation: 0.0,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.green,
         title: Text(
           "消息",
-          style: MTextStyles.textBoldDark16,
+          
         ),
         centerTitle: true,
       ),
       body: new RefreshIndicator(
-        key: _refreshIndicatorKey, 
-        onRefresh: _getData,// onRefresh 参数是一个Future<Null>的回调
-        child: new ListView.builder(
-         // 这句是在list里面的内容不足一屏时，list可能会滑不动，加上就一直都可以滑动
-          physics: const AlwaysScrollableScrollPhysics(),
-          itemCount: this.list.length,
-          itemBuilder: (_, int index) => _createItem(index),
-          )
-        ),
+          key: _refreshIndicatorKey,
+          onRefresh: _getData, // onRefresh 参数是一个Future<Null>的回调
+          child: new ListView.builder(
+            // 这句是在list里面的内容不足一屏时，list可能会滑不动，加上就一直都可以滑动
+            physics: const AlwaysScrollableScrollPhysics(),
+            itemCount: this.list.length,
+            itemBuilder: (_, int index) => _createItem(index),
+          )),
       // body: Center(
       //   child: RaisedButton(
       //     onPressed: (){
@@ -82,12 +83,13 @@ class _XiaoxiPageState extends State<XiaoxiPage> with AutomaticKeepAliveClientMi
       // ),
     );
   }
- Widget _createItem_sys(){
-   Widget widget=null;
 
-   widget =Container(
-     padding:EdgeInsets.only(left:16,bottom:16),
-     child: Row(
+  Widget _createItem_sys() {
+    Widget widget = null;
+
+    widget = Container(
+        padding: EdgeInsets.only(left: 16, bottom: 16),
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
@@ -140,12 +142,11 @@ class _XiaoxiPageState extends State<XiaoxiPage> with AutomaticKeepAliveClientMi
               ),
             )
           ],
-        )
-   );
+        ));
     return widget;
- }
+  }
 
- Widget _createItem(int index) {
+  Widget _createItem(int index) {
     Widget widget = null;
 
     if (index % 3 == 1) {
@@ -168,49 +169,53 @@ class _XiaoxiPageState extends State<XiaoxiPage> with AutomaticKeepAliveClientMi
             ),
             Expanded(
                 child: GestureDetector(
-                  onTap: (){ _onTap("我是数据"); },
+                    onTap: () {
+                      _onTap("我是数据");
+                    },
                     child: Container(
-              padding: EdgeInsets.only(left: 16, right: 16, bottom: 8),
-              decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(width: 0.2, color: Colors.black))),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          "我是昵称",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          "下拉看看效果  ----我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: Colors.grey[700]),
-                        ),
-                        Text("3天前",
-                            style: TextStyle(
-                                fontSize: 12, color: Colors.grey[700])),
-                      ],
-                    ),
-                  ),
-                  CachedNetworkImage(
-                    width: 64,
-                    height: 64,
-                    // placeholder: new CircularProgressIndicator(),
-                    imageUrl: 'https://picsum.photos/64/64?image=${index}',
-                    // errorWidget: new Icon(Icons.error),
-                  )
-                ],
-              ),
-            )))
+                      padding: EdgeInsets.only(left: 16, right: 16, bottom: 8),
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom:
+                                  BorderSide(width: 0.2, color: Colors.black))),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "我是昵称",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "下拉看看效果  ----我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(color: Colors.grey[700]),
+                                ),
+                                Text("3天前",
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.grey[700])),
+                              ],
+                            ),
+                          ),
+                          CachedNetworkImage(
+                            width: 64,
+                            height: 64,
+                            // placeholder: new CircularProgressIndicator(),
+                            imageUrl:
+                                'https://picsum.photos/64/64?image=${index}',
+                            // errorWidget: new Icon(Icons.error),
+                          )
+                        ],
+                      ),
+                    )))
           ],
         ));
 
     return widget;
   }
-
 }
