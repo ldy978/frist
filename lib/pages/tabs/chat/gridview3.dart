@@ -1,7 +1,20 @@
+import 'package:app01/pages/tabs/Home/global.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-
 class MyGridView3 {
-  GestureDetector getStructuredGridCell(context,name, image) {
+  ListRoom(BuildContext context,roomList) {
+    print(roomList);
+    List<Widget> array = [];
+    for (var item in roomList) {
+      print(item["name"]);
+      array.add(
+          getStructuredGridCell(context,item["name"], item["img_url"],item["intro"])
+      );
+    }
+    return array;
+  }
+
+  GestureDetector getStructuredGridCell(context,String  name, String image,String intro) {
     // Wrap the child under GestureDetector to setup a on click action
     return GestureDetector(
       onTap: () {
@@ -23,16 +36,21 @@ class MyGridView3 {
             mainAxisSize: MainAxisSize.min,
             verticalDirection: VerticalDirection.down,
             children: <Widget>[
-              Image(image: AssetImage('images/' + image)),
+              Image.network(
+                  image,
+                  fit: BoxFit.fill),
               Center(
                 child: Text(name),
-              )
+              ),
+              Center(
+                child: Text("简介"+intro),
+              ),
             ],
           )),
     );
   }
 
-  GridView build(BuildContext context) {
+  GridView build(BuildContext context,roomList) {
     return GridView.count(
       primary: true,
       padding: const EdgeInsets.all(1.0),
@@ -40,15 +58,7 @@ class MyGridView3 {
       childAspectRatio: 0.85,
       mainAxisSpacing: 1.0,
       crossAxisSpacing: 1.0,
-      children: <Widget>[
-        getStructuredGridCell(context,"现代考试讨论", "1.jpg"),
-        getStructuredGridCell(context,"唱歌", "1.jgif"),
-        getStructuredGridCell(context,"摄影", "2.gif"),
-        getStructuredGridCell(context,"美食", "3.gif"),
-        getStructuredGridCell(context,"旅游", "4.gif"),
-        getStructuredGridCell(context,"学习使我快乐", "5.gif"),
-        getStructuredGridCell(context,"熬夜使我快乐", "6.gif"),
-      ],
+      children: ListRoom(context,roomList)
     );
   }
 }

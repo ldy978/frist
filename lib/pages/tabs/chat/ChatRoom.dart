@@ -1,6 +1,8 @@
+import 'package:app01/pages/tabs/Home/global.dart';
 import 'package:app01/pages/tabs/chat/gridview3.dart';
 import 'package:app01/pages/tabs/res/colors.dart';
 import 'package:app01/pages/tabs/res/styles.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class ChatRoomPage extends StatefulWidget {
@@ -11,7 +13,34 @@ class ChatRoomPage extends StatefulWidget {
 }
 
 class _ChatRoomPageState extends State<ChatRoomPage> {
-  final MyGridView3 myGridView = MyGridView3();
+  MyGridView3 myGridView = MyGridView3();
+  List roomList = [];
+  @override
+  void initState() {
+    super.initState();
+    getHttp().then((val) {
+      setState(() {
+        roomList = val.toList();
+      });
+      
+    });
+  }
+
+  getHttp() async {
+    try {
+      Response response;
+      Dio dio = new Dio();
+      Map<String, String> map = {'uid': Global.account};
+      FormData formData = FormData.fromMap(map);
+      response = await dio.post(
+        Global.get_room,
+        data: formData,
+      );
+      return response.data;
+    } catch (e) {
+      return print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +84,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
           ),
         ],
       ),
-      body: myGridView.build(context),
+      body: myGridView.build(context, roomList),
     );
   }
 }

@@ -13,7 +13,7 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  final MyGridView myGridView = MyGridView();
+  MyGridView myGridView = MyGridView();
   @override
   Widget build(BuildContext context) {
    return Scaffold(
