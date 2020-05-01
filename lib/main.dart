@@ -4,7 +4,9 @@ import 'package:app01/controller/socket_manger.dart';
 import 'package:app01/pages/login.dart';
 import 'package:app01/pages/splash_page.dart';
 import 'package:app01/pages/tabs/ChatMessage.dart';
+import 'package:app01/pages/tabs/FaBu.dart';
 import 'package:app01/pages/tabs/Home/Index.dart';
+import 'package:app01/pages/tabs/Home/shiwu.dart';
 import 'package:app01/pages/tabs/Home/travel_page.dart';
 import 'package:app01/pages/tabs/Me/About.dart';
 import 'package:app01/pages/tabs/Me/Care.dart';
@@ -18,6 +20,7 @@ import 'package:app01/pages/tabs/Me/Travel.dart';
 import 'package:app01/pages/tabs/Me/mine_page.dart';
 import 'package:app01/pages/tabs/chat/ChatRoom.dart';
 import 'package:app01/pages/tabs/chat/Class.dart';
+import 'package:app01/pages/tabs/chat/CreateRoom.dart';
 import 'package:app01/pages/tabs/chat/YuanXi.dart';
 import 'package:app01/pages/tabs/chat/liaotian.dart';
 import 'package:flutter/material.dart';
@@ -69,6 +72,9 @@ final SystemUiOverlayStyle _style =SystemUiOverlayStyle(statusBarColor: Colors.t
           '/care': (BuildContext context) => CarePage(),
          '/travel_page': (BuildContext context) => TravelPage(),
          '/index': (BuildContext context) => IndexPage(),
+         '/fabu': (BuildContext context) => FaBuPage(),
+         '/createroom': (BuildContext context) => CreateRoomPage(),
+         '/shiwu': (BuildContext context) => shiwuPage(),
         },
         home: SplashPage(),
       ),

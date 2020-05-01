@@ -41,12 +41,16 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
           IconButton(
             icon: Icon(Icons.search),
             tooltip: '搜索',
+            color: Colors.black,
             onPressed: (){},
             ),
           IconButton(
             icon: Icon(Icons.add), 
             tooltip: '创建',
-            onPressed: (){},
+            color: Colors.black,
+            onPressed: (){
+              Navigator.pushNamed(context, '/createroom');
+            },
             ),
         ],
 

@@ -143,7 +143,15 @@ class TodayKb extends StatelessWidget {
                         '失物招领',
                         style: new TextStyle(color: Color(0xFF888888)),
                       ),
-                    )
+                    ),
+                   FlatButton.icon(
+                   //padding: EdgeInsets.all(1.0),
+                   icon: Icon(Icons.add), 
+                   label: Text("添加"),
+                   onPressed: (){
+                    // print("发布");
+                    Navigator.pushNamed(context, '/shiwu');
+                   },)
                   ],
                 ),
               ),
