@@ -42,7 +42,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
           onTap: () {
-            Navigator.pushNamed(context, '/chatroom');
+            Navigator.pop(context);
           },
           child: Icon(
             Icons.arrow_back_ios,
@@ -80,8 +80,10 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                           data: formData,
                         );
                         if (response.statusCode == 200) {
-                          if(response.data == '1'){
+                          print(response.toString());
+                          if(response.data == 200){
                             Toast.show("创建房间成功", context);
+                            Navigator.pop(context);
                           }
                         }
                   } else {
