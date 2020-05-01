@@ -34,6 +34,7 @@ dependencies:
   toast: ^0.1.5 
   url_launcher: 3.0.0
   webview_flutter: ^0.3.10+4
+  flutter_picker: ^1.0.11
   #jpush_flutter: 0.5.3
   # leancloud_official_plugin: '1.0.0-beta.2'
   #  jpush_flutter: 0.1.0 #极光推送

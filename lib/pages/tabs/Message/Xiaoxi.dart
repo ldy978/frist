@@ -69,6 +69,7 @@ class _XiaoxiPageState extends State<XiaoxiPage>
           key: _refreshIndicatorKey,
           onRefresh: _getData, // onRefresh 参数是一个Future<Null>的回调
           child: new ListView.builder(
+            padding: EdgeInsets.all(10),
             // 这句是在list里面的内容不足一屏时，list可能会滑不动，加上就一直都可以滑动
             physics: const AlwaysScrollableScrollPhysics(),
             itemCount: this.list.length,

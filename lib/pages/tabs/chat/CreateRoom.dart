@@ -1,10 +1,11 @@
+import 'dart:io';
+
 import 'package:app01/pages/tabs/Home/global.dart';
 import 'package:app01/pages/tabs/res/colors.dart';
-import 'package:app01/pages/tabs/res/customview.dart';
 import 'package:app01/pages/tabs/res/gaps.dart';
-import 'package:app01/pages/tabs/res/styles.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:toast/toast.dart';
 
 class CreateRoomPage extends StatefulWidget {
@@ -15,16 +16,27 @@ class CreateRoomPage extends StatefulWidget {
 }
 
 class _CreateRoomPageState extends State<CreateRoomPage> {
-  // Widget buildTextField() {
-  //   return TextField(
-  //     decoration: InputDecoration(
-  //         fillColor: Colors.blue.shade100,
-  //         filled: true,
-  //         prefixIcon: Icon(Icons.local_airport),
-  //         suffixText: 'airport'),
-  //   );
-  // }
-  //房间名的控制器
+  //记录选择的照片
+  File _image;
+  //当图片上传成功后，记录当前上传的图片在服务器中的位置
+  String _imgServerPath;
+
+  Future _getImageFromCamera() async {
+    var image =
+        await ImagePicker.pickImage(source: ImageSource.camera, maxWidth: 400);
+    setState(() {
+      _image = image;
+    });
+  }
+
+  //相册选择
+  Future _getImageFromGallery() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = image;
+    });
+  }
+
   TextEditingController nameController = TextEditingController();
   TextEditingController introController = TextEditingController();
   TextEditingController pwdController = TextEditingController();
@@ -51,7 +63,6 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
         ),
         title: Text(
           "创建房间",
-          
         ),
         centerTitle: true,
         actions: <Widget>[
@@ -65,34 +76,34 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                     print('房间简介' + introController.text);
                     print("私人房间" + _switchItemA.toString());
                     Dio dio = new Dio();
-                        Map<String, String> map = {
-                          'uid': Global.account,
-                          'name': nameController.text.toString(),
-                          'img_url':"https://bjtuhbxy.yeximm.com/__local/5/BC/16/3F870F1B06A8AE02D5DB1BE2311_A0FBFACC_FDD6.jpg",
-                          'intro':introController.text.toString(),
-                          'public':_switchItemA?'0':'1',
-                          'password':_switchItemA?pwdController.text.toString():""
-                        };
-                        FormData formData = FormData.fromMap(map);
-                        print(formData);
-                        Response response = await dio.post(
-                        Global.create_room,
-                          data: formData,
-                        );
-                        if (response.statusCode == 200) {
-                          print(response.toString());
-                          if(response.data == 200){
-                            Toast.show("创建房间成功", context);
-                            Navigator.pop(context);
-                          }
-                        }
+                    Map<String, String> map = {
+                      'uid': Global.account,
+                      'name': nameController.text.toString(),
+                      'img_url': _imgServerPath,
+                      'intro': introController.text.toString(),
+                      'public': _switchItemA ? '0' : '1',
+                      'password':
+                          _switchItemA ? pwdController.text.toString() : ""
+                    };
+                    FormData formData = FormData.fromMap(map);
+                    print(formData);
+                    Response response = await dio.post(
+                      Global.create_room,
+                      data: formData,
+                    );
+                    if (response.statusCode == 200) {
+                      print(response.toString());
+                      if (response.data == 200) {
+                        Toast.show("创建房间成功", context);
+                        Navigator.pop(context);
+                      }
+                    }
                   } else {
                     Toast.show("房间名称不能为空", context);
                   }
                 },
-                child: new Text(
-                  "创建", 
-                ),
+                child: Icon(Icons.done),
+                color: Colors.green,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
@@ -102,7 +113,8 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
       // body: Padding(padding: const EdgeInsets.all(30.0),
       // child:buildTextField(),),
       // body:myGridView.build(context),
-      body: Column(
+      body: ListView(
+        padding: EdgeInsets.all(15),
         children: <Widget>[
           TextField(
             controller: nameController,
@@ -158,6 +170,44 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                     labelText: '房间密码',
                   ),
                 ),
+
+          SizedBox(height: 10),
+          // _image == null
+          //     ? Text("no image selected")
+          //     : Image.file(
+          //         _image,
+          //         fit: BoxFit.cover,
+          //       ),
+          // SizedBox(height: 10),
+          Text("选择房间封面"),
+          Row(children: [
+            RaisedButton(
+              onPressed: () {
+                _getImageFromCamera();
+              },
+              child: Text("照相机"),
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            RaisedButton(
+              onPressed: () {
+                _getImageFromGallery();
+              },
+              child: Text("相册"),
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            RaisedButton(
+                onPressed: () {
+                  _uploadImage();
+                },
+                color: Colors.blue,
+                textColor: Colors.white,
+                child: Text("上传")),
+          ]),
+          _imgServerPath == null ? Gaps.vGap16 : Image.network(_imgServerPath),
         ],
       ),
     );
@@ -170,4 +220,19 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
       pwdController.clear();
     });
   }
+
+  //上传图片到服务器
+  _uploadImage() async {
+    FormData formData = FormData.fromMap({"file": _image});
+    var response = await Dio()
+        .post("http://upload.image.hbxy.xyz/dongtai/index.php", data: formData);
+    print(response);
+    if (response.statusCode == 200) {
+      print(response.data.toString());
+      setState(() {
+        _imgServerPath = "http://" + response.data.toString();
+      });
+    }
+  }
+  //拍照
 }
