@@ -1,7 +1,9 @@
+import 'package:app01/pages/tabs/Home/global.dart';
 import 'package:app01/pages/tabs/res/colors.dart';
 import 'package:app01/pages/tabs/res/customview.dart';
 import 'package:app01/pages/tabs/res/gaps.dart';
 import 'package:app01/pages/tabs/res/styles.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
 
@@ -57,14 +59,31 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
               height: 50.0,
               width: 60.0,
               child: new RaisedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (nameController.text.length != 0) {
                     print("房间名称" + nameController.text);
                     print('房间简介' + introController.text);
                     print("私人房间" + _switchItemA.toString());
-                    if (_switchItemA) {
-                      print("房间密码" + pwdController.text);
-                    }
+                    Dio dio = new Dio();
+                        Map<String, String> map = {
+                          'uid': Global.account,
+                          'name': nameController.text.toString(),
+                          'img_url':"https://bjtuhbxy.yeximm.com/__local/5/BC/16/3F870F1B06A8AE02D5DB1BE2311_A0FBFACC_FDD6.jpg",
+                          'intro':introController.text.toString(),
+                          'public':_switchItemA?'0':'1',
+                          'password':_switchItemA?pwdController.text.toString():""
+                        };
+                        FormData formData = FormData.fromMap(map);
+                        print(formData);
+                        Response response = await dio.post(
+                        Global.create_room,
+                          data: formData,
+                        );
+                        if (response.statusCode == 200) {
+                          if(response.data == '1'){
+                            Toast.show("创建房间成功", context);
+                          }
+                        }
                   } else {
                     Toast.show("房间名称不能为空", context);
                   }
@@ -85,7 +104,6 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
         children: <Widget>[
           TextField(
             controller: nameController,
-            keyboardType: TextInputType.number,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.all(10.0),
               icon: Icon(Icons.nature),
@@ -97,7 +115,6 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
           Gaps.vGap16,
           TextField(
             controller: introController,
-            keyboardType: TextInputType.number,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.all(10.0),
               icon: Icon(Icons.lightbulb_outline),
