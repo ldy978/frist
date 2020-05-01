@@ -13,4 +13,5 @@ class Global {
  
   static String xiaonei_url = "http://"+host+":8080/admin.php?c=News&a=index";
   static String create_room = "http://"+host+":8080/admin.php?c=Room&a=create";
+  static String get_room = "http://"+host+":8080/admin.php?c=Room&a=get";
 }
