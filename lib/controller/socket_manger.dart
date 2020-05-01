@@ -2,8 +2,8 @@ import 'dart:io';
 import 'dart:async';
  
 class SocketManage {
-  static String host='127.0.0.1';
-  static int  port=8089;
+  static String host='47.94.168.32';
+  static int  port=5555;
   static Socket mSocket;
   static  Stream<List<int>> mStream;
  
