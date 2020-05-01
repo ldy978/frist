@@ -11,16 +11,17 @@ class SocketManage {
       await Socket.connect(host,port).then((Socket socket)  {
         mSocket = socket;
         print("Init Socket Success:");
-        mStream=mSocket.asBroadcastStream();      //多次订阅的流 如果直接用socket.listen只能订阅一次
+        mStream=mSocket.asBroadcastStream();      //多 listen只能订阅一次
       }).catchError((e) {
         print("Init Socket fail:");
         print('connectException:$e');
-        initSocket();
+        // initSocket();
       });
   }
  
-  static void  addParams(List<int> params){
+  static void addParams(List<int> params){
     mSocket.add(params);
+    //mSocket.write("sss");
   }
  
   static void dispos(){

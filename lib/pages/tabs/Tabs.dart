@@ -5,7 +5,6 @@ import 'package:app01/pages/tabs/Me/mine_page.dart';
 import 'package:flutter/material.dart';
 import 'FaBu.dart';
 // import 'Home/Home.dart';
-import 'Me/My.dart';
 import 'Message/Xiaoxi.dart';
 import 'chat/Chat.dart';
 

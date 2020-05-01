@@ -18,13 +18,14 @@ class _LiaoTianPageState extends State<LiaoTianPage>
   final TextEditingController _textController = new TextEditingController();
   bool _isComposing=false;//根据该字段是否包含要发送的文本来决定是否启用发送按钮，并更改按钮的外观
 
-  // @override
-  // void initState() { 
-  //   super.initState();
-  //   List<int> a=[123211];    //请求参数    
-  //   SocketManage.mStream.listen(onReceiver);
-  //   SocketManage.addParams(a);
-  // }
+  @override
+  void initState() { 
+    super.initState();
+    SocketManage.initSocket();
+    List<int> a=[1024];    //请求参数    
+    SocketManage.mStream.listen(onReceiver);
+    SocketManage.addParams(a);
+  }
 
   void onReceiver(List<int> event) {
     debugPrint('useragreement listen :$event');
@@ -33,6 +34,7 @@ class _LiaoTianPageState extends State<LiaoTianPage>
   void _handleSubmitted(String text) {
     _textController.clear();
     setState(() {
+     
       _isComposing=false;//文本字段被清除
     });
     ChatMessage message = new ChatMessage(
@@ -51,6 +53,7 @@ class _LiaoTianPageState extends State<LiaoTianPage>
     for(ChatMessage message in _messages)
        message.animationController.dispose();
        super.dispose();
+       SocketManage.dispos();
   }
 
   Widget _buildTextComposer() {

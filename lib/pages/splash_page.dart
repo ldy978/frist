@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app01/pages/tabs/Home/global.dart';
 import 'package:app01/pages/tabs/res/colors.dart';
 import 'package:app01/pages/tabs/res/dimens.dart';
 import 'package:app01/pages/tabs/res/gaps.dart';
@@ -50,6 +51,7 @@ class _SplashPageState extends State<SplashPage> {
   init() async {
     final prefs = await SharedPreferences.getInstance();
     flag=prefs.getString("account");
+    Global.account=flag;
   }
   @override
   Widget build(BuildContext context) {

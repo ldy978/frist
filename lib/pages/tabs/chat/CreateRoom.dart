@@ -1,7 +1,9 @@
 import 'package:app01/pages/tabs/res/colors.dart';
+import 'package:app01/pages/tabs/res/customview.dart';
 import 'package:app01/pages/tabs/res/gaps.dart';
 import 'package:app01/pages/tabs/res/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 class CreateRoomPage extends StatefulWidget {
   CreateRoomPage({Key key}) : super(key: key);
@@ -20,11 +22,10 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
   //         suffixText: 'airport'),
   //   );
   // }
-  //手机号的控制器
-  TextEditingController phoneController = TextEditingController();
-
-  //密码的控制器
-  TextEditingController passController = TextEditingController();
+  //房间名的控制器
+  TextEditingController nameController = TextEditingController();
+  TextEditingController introController = TextEditingController();
+  TextEditingController pwdController = TextEditingController();
   bool flag = false;
   bool _switchItemA = false;
   @override
@@ -56,10 +57,20 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
               height: 50.0,
               width: 60.0,
               child: new RaisedButton(
-                onPressed: () {},
-                
-                child: new Text("创建",
-                  
+                onPressed: () {
+                  if (nameController.text.length != 0) {
+                    print("房间名称" + nameController.text);
+                    print('房间简介' + introController.text);
+                    print("私人房间" + _switchItemA.toString());
+                    if (_switchItemA) {
+                      print("房间密码" + pwdController.text);
+                    }
+                  } else {
+                    Toast.show("房间名称不能为空", context);
+                  }
+                },
+                child: new Text(
+                  "创建",
                 ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -73,7 +84,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
       body: Column(
         children: <Widget>[
           TextField(
-            controller: phoneController,
+            controller: nameController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.all(10.0),
@@ -85,7 +96,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
           Gaps.vGap16,
           Gaps.vGap16,
           TextField(
-            controller: passController,
+            controller: introController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.all(10.0),
@@ -110,12 +121,24 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                   fontWeight: FontWeight.w700),
             ),
             subtitle: Text(
-              '别人搜不到这个房间了，此选项不可修改',
+              '默认为公开房间,开启后需要密码才能加入',
             ),
             secondary:
                 Icon(_switchItemA ? Icons.visibility : Icons.visibility_off),
             selected: _switchItemA,
           ),
+          Gaps.vGap16,
+          !_switchItemA
+              ? Gaps.vGap16
+              : TextField(
+                  controller: pwdController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(10.0),
+                    icon: Icon(Icons.lock),
+                    labelText: '房间密码',
+                  ),
+                ),
         ],
       ),
     );
@@ -123,8 +146,9 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
 
   void onTextClear() {
     setState(() {
-      phoneController.clear();
-      passController.clear();
+      nameController.clear();
+      introController.clear();
+      pwdController.clear();
     });
   }
 }
