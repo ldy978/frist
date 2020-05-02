@@ -18,4 +18,9 @@ class Global {
   static String current_room_id;
 
   static String current_room_name;
+  //发送动态网址
+  static String send_message = "http://"+host+":8080/admin.php?c=News&a=send";
+ 
+  //失物招领发送接口
+  static String lost = "http://"+host+":8080/admin.php?c=Lost&a=send";
 }

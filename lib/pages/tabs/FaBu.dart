@@ -1,10 +1,14 @@
 import 'dart:io';
 
 import 'package:app01/pages/tabs/res/gaps.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:toast/toast.dart';
+
+import 'Home/global.dart';
 
 class FaBuPage extends StatefulWidget {
   FaBuPage({Key key}) : super(key: key);
@@ -19,9 +23,13 @@ class _FaBuState extends State<FaBuPage> {
     "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1584618157711&di=e6258a2ba24014b56d61e716f1b48c2e&imgtype=0&src=http%3A%2F%2Fimg.daimg.com%2Fuploads%2Fallimg%2F191014%2F1-1910141GJ40-L.jpg",
     "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1584618138042&di=c9209d1167e5659619e2afab32b1a25f&imgtype=0&src=http%3A%2F%2Ffile.mumayi.com%2Fforum%2F201401%2F16%2F231735cfp4046206r4i705.jpg"
   ];
-  var _imgPath;
-  File _imageFile;
+
   String info = null;
+
+  //记录选择的照片
+  File _image;
+  //当图片上传成功后，记录当前上传的图片在服务器中的位置
+  String _imgServerPath;
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +53,10 @@ class _FaBuState extends State<FaBuPage> {
           SizedBox(
             height: 20,
           ),
-          Text("                       快来分享你的故事",
-          style: TextStyle(fontSize: 18),
+          Text(
+            "    快来分享你的故事",
+            style: TextStyle(fontSize: 18),
           ),
-          
           Gaps.vGap10,
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -75,51 +83,106 @@ class _FaBuState extends State<FaBuPage> {
             IconButton(
               icon: Icon(Icons.photo),
               alignment: Alignment.bottomLeft,
-              onPressed: () async => await _pickImageFormGallery(),
+              onPressed: () {
+               _getImageFromGallery();
+              },
             ),
             SizedBox(
-              width: 120,
+              width: 20,
+            ),
+            Expanded(
+              // child: IconButton(icon: Icon(Icons.done), onPressed: () {
+              //   _uploadImage();
+              // }),
+              child: SizedBox(width: 10,),
             ),
             new RaisedButton(
               child: new Text("发布"),
               color: Colors.blue,
               textColor: Colors.white,
               onPressed: () {
-                print("提交按钮+照片");
-                print(info);
+                send();
               },
               disabledColor: Colors.grey,
               disabledTextColor: Colors.white,
               disabledElevation: 4,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)), //圆角大小
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0)), //圆角大小
+            ),
+            SizedBox(
+              width: 10,
             )
-            // Text(
-            //   "    发布",
-            //   style: TextStyle(fontSize: 18),
-            // ),
-            // IconButton(
-            //   icon: Icon(Icons.done),
-            //   onPressed: (){
-            //     print("提交按钮+照片");
-            //     print(info);
-            //   })
           ]),
           Container(
-              height: 150,
+              height: 400,
               padding: EdgeInsets.all(1),
-              child: this._imageFile == null
-                  ? Placeholder()
-                  : Image.file(
-                      this._imageFile,
-                    ))
+              child: this._imgServerPath == null
+                  ? Center(child:Text("还未选择任何照片"))
+                  : Image.network(_imgServerPath)
+          )
         ],
       ),
     );
   }
 
-  Future<Null> _pickImageFormGallery() async {
-    final File imageFile =
-        await ImagePicker.pickImage(source: ImageSource.gallery);
-    setState(() => this._imageFile = imageFile);
+  Future _getImageFromCamera() async {
+    var image =
+        await ImagePicker.pickImage(source: ImageSource.camera, maxWidth: 400);
+    setState(() {
+      _image = image;
+      _uploadImage();
+    });
+  }
+
+  //相册选择
+  Future _getImageFromGallery() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = image;
+      _uploadImage();
+    });
+  }
+
+  //上传图片到服务器
+  _uploadImage() async {
+    String path = _image.path;
+    var name = path.substring(path.lastIndexOf("/") + 1, path.length); //获取名字
+    print(name);
+    FormData formData = FormData.fromMap(
+        {"file": await MultipartFile.fromFile(_image.path, filename: name)});
+    Dio dio = new Dio();
+    dio.options.responseType = ResponseType.plain;
+    var response = await dio
+        .post("http://upload.image.hbxy.xyz/dongtai/index.php", data: formData);
+    print(response);
+    if (response.statusCode == 200) {
+      print(response.data.toString());
+      setState(() {
+        _imgServerPath = "http://" + response.data.toString();
+        Toast.show("上传成功", context);
+      });
+    }
+  }
+
+  Future<void> send() async {
+    Dio dio = new Dio();
+    Map<String, String> map = {
+      'uid': Global.account,
+      'img_url': _imgServerPath,
+      'context': info
+    };
+    print(map);
+    FormData formData = FormData.fromMap(map);
+    Response response = await dio.post(
+      Global.send_message,
+      data: formData,
+    );
+    if (response.statusCode == 200) {
+      print(response.toString());
+      if (response.data == 200) {
+        Toast.show("动态发布成功", context);
+        Navigator.pop(context);
+      }
+    }
   }
 }

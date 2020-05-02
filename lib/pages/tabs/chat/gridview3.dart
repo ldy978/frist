@@ -30,7 +30,7 @@ class MyGridView3 {
             children: <Widget>[
               Image.network(
                   image,
-                  fit: BoxFit.fill),
+                  fit: BoxFit.cover),
               Center(
                 child: Text(name),
               ),

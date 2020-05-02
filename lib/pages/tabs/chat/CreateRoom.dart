@@ -40,7 +40,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController introController = TextEditingController();
   TextEditingController pwdController = TextEditingController();
-  bool flag = false;
+  bool flag = false;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
   bool _switchItemA = false;
   @override
   Widget build(BuildContext context) {
@@ -86,7 +86,6 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                           _switchItemA ? pwdController.text.toString() : ""
                     };
                     FormData formData = FormData.fromMap(map);
-                    print(formData);
                     Response response = await dio.post(
                       Global.create_room,
                       data: formData,
@@ -170,15 +169,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                     labelText: '房间密码',
                   ),
                 ),
-
           SizedBox(height: 10),
-          // _image == null
-          //     ? Text("no image selected")
-          //     : Image.file(
-          //         _image,
-          //         fit: BoxFit.cover,
-          //       ),
-          // SizedBox(height: 10),
           Text("选择房间封面"),
           Row(children: [
             RaisedButton(
@@ -207,7 +198,14 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                 textColor: Colors.white,
                 child: Text("上传")),
           ]),
-          _imgServerPath == null ? Gaps.vGap16 : Image.network(_imgServerPath),
+          SizedBox(height: 10),
+          _image == null
+              ? Text("")
+              : Image.file(
+                  _image,
+                  fit: BoxFit.fitHeight
+                ),
+          // _imgServerPath == null ? Gaps.vGap16 : Image.network(_imgServerPath),
         ],
       ),
     );
@@ -223,16 +221,22 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
 
   //上传图片到服务器
   _uploadImage() async {
-    FormData formData = FormData.fromMap({"file": _image});
-    var response = await Dio()
+    
+    String path = _image.path;
+    var name = path.substring(path.lastIndexOf("/") + 1, path.length);//获取名字
+    print(name);
+    FormData formData = FormData.fromMap({"file":await MultipartFile.fromFile(_image.path, filename:name)});
+    Dio dio = new Dio();
+    dio.options.responseType = ResponseType.plain;
+    var response = await dio
         .post("http://upload.image.hbxy.xyz/dongtai/index.php", data: formData);
     print(response);
     if (response.statusCode == 200) {
       print(response.data.toString());
       setState(() {
         _imgServerPath = "http://" + response.data.toString();
+        Toast.show("上传成功", context);
       });
     }
   }
-  //拍照
 }

@@ -121,8 +121,7 @@ class _LiaoTianPageState extends State<LiaoTianPage>
         ]));
   }
 }
-
-const String _name = "hekaiyou";
+const String _name = "我";
 
 class ChatMessage extends StatelessWidget {
   ChatMessage({this.text, this.animationController});

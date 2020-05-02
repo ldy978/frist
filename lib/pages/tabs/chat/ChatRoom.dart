@@ -1,7 +1,6 @@
 import 'package:app01/pages/tabs/Home/global.dart';
 import 'package:app01/pages/tabs/chat/gridview3.dart';
 import 'package:app01/pages/tabs/res/colors.dart';
-import 'package:app01/pages/tabs/res/styles.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 

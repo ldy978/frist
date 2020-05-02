@@ -1,4 +1,3 @@
-import 'package:app01/pages/tabs/Home/Home.dart';
 import 'package:app01/pages/tabs/Home/One.dart';
 import 'package:app01/pages/tabs/Home/travel_page.dart';
 import 'package:app01/pages/tabs/Me/mine_page.dart';
