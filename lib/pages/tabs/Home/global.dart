@@ -23,4 +23,5 @@ class Global {
  
   //失物招领发送接口
   static String lost = "http://"+host+":8080/admin.php?c=Lost&a=send";
+  static String faceRegister="https://aip.baidubce.com/rest/2.0/face/v3/faceset/user/add?access_token=24.5ac35281a37736b36dcfb2f8779cbf6d.2592000.1591376078.282335-19749840";
 }

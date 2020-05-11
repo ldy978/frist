@@ -181,7 +181,7 @@ class _FaBuState extends State<FaBuPage> {
       print(response.toString());
       if (response.data == 200) {
         Toast.show("动态发布成功", context);
-        Navigator.pop(context);
+        //ssNavigator.pop(context);
       }
     }
   }
