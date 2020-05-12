@@ -1,8 +1,11 @@
+import 'package:app01/pages/tabs/Home/global.dart';
 import 'package:app01/pages/tabs/res/colors.dart';
 import 'package:app01/pages/tabs/res/gaps.dart';
 import 'package:app01/pages/tabs/res/styles.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toast/toast.dart';
 
 class MinePage extends StatefulWidget {
   @override
@@ -10,6 +13,37 @@ class MinePage extends StatefulWidget {
 }
 
 class _MinePageState extends State<MinePage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    register_user();
+  }
+
+  Future register_user() async {
+    Dio dio = new Dio();
+    Map<String, String> map = {
+      'uid': Global.account,
+      'nickname':Global.nickname,
+      'college_name':Global.xueyuan,
+      'major_name':Global.zhuanye,
+      'class': Global.banji,
+    };
+    print(map);
+    FormData formData = FormData.fromMap(map);
+    Response response = await dio.post(
+      Global.register_info,
+      data: formData,
+    );
+    if (response.statusCode == 200) {
+      print(response.toString());
+      if (response.data !="fail") {
+        //Toast.show("注册成功", context);
+        //ssNavigator.pop(context);
+      }
+    }
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +60,6 @@ class _MinePageState extends State<MinePage> {
               Navigator.pushNamed(context, '/shibie');
             },
           ),
-         
         ],
       ),
       body: Container(
@@ -51,10 +84,23 @@ class _MinePageState extends State<MinePage> {
               ),
             ),
             Gaps.vGap10,
-            Text(
-              "奋斗的小土豆",
-              style: MTextStyles.textBoldDark16,
-            ),
+              Text(
+                Global.nickname,
+                style: MTextStyles.textBoldDark16,
+              ),
+              Text(
+                Global.banji,
+                style: MTextStyles.textBoldDark16,
+              ),
+              Text(
+                Global.xueyuan,
+                style: MTextStyles.textBoldDark16,
+              ),
+              Text(
+                Global.zhuanye,
+                style: MTextStyles.textBoldDark16,
+              ),
+
             Gaps.vGap4,
             InkWell(
               onTap: () {

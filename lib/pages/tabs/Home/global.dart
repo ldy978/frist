@@ -4,6 +4,10 @@ class Global {
   static String secret; 
   static String nickname;//姓名
   static String week;//周次
+  static String zhuanye;
+  static String banji;
+  static String xueyuan;
+  static String register_info = "http://"+host+":8080/admin.php";
   static String host = '192.168.1.9';
   static String notify_url="http://"+host+":8080/admin.php?c=Notify&a=index";
   
@@ -17,6 +21,7 @@ class Global {
   static bool debug = true;
   static String current_room_id;
 
+  static String info_url = "https://xxzx.bjtuhbxy.edu.cn/login/main/ios/kb";
   static String current_room_name;
   //发送动态网址
   static String send_message = "http://"+host+":8080/admin.php?c=News&a=send";

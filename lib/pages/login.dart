@@ -114,11 +114,17 @@ class _LoginPageState extends State<LoginPage> {
                             prefs.setString(
                                 'name', json.decode(response.data)["name"]);
                             Global.account = _controller_user.text.toString();
+                            Global.nickname =
+                                json.decode(response.data)["name"];
                             print(prefs.getString("name"));
+                            net();
+                            //register_user();
                             Navigator.of(context).pushReplacementNamed('/tab');
                           } else {
-                            Toast.show(json.decode(response.data)["error"], context,
-                            duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+                            Toast.show(
+                                json.decode(response.data)["error"], context,
+                                duration: Toast.LENGTH_SHORT,
+                                gravity: Toast.BOTTOM);
                           }
                         } else {
                           print("HHERROR" + response.statusCode.toString());
@@ -140,5 +146,40 @@ class _LoginPageState extends State<LoginPage> {
             ],
           )),
     );
+  }
+
+  
+  Future<void> net() async {
+    final prefs = await SharedPreferences.getInstance();
+    //print("获取课表信息");
+    Dio dio = new Dio();
+    if (Global.account != "fangke") {
+      try {
+        Map<String, String> map = {
+          'name': "kb",
+          'account': Global.account,
+          'numb': Global.account,
+        };
+        FormData formData = FormData.fromMap(map);
+        Response response = await dio.post(Global.info_url, data: formData);
+        if (response.statusCode == 200) {
+          //print(response.data.toString());
+          //print(json.decode(response.data)["information"]["zy"]);
+          Global.zhuanye = json.decode(response.data)["information"]["zy"];
+          Global.banji = json.decode(response.data)["information"]["bj"];
+          Global.xueyuan = json.decode(response.data)["information"]["xy"];
+          prefs.setString('zhuanye',Global.zhuanye );
+          prefs.setString('banji', Global.banji);
+          prefs.setString('xueyuan', Global.xueyuan);
+        }
+      } on DioError {
+        // 请求错误处理
+        Toast.show("网络错误,请检查网络连接", context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      }
+    } else {
+      Toast.show("访客身份", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    }
   }
 }

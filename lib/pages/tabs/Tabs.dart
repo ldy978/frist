@@ -1,9 +1,11 @@
 import 'package:app01/pages/tabs/Home/One.dart';
 import 'package:app01/pages/tabs/Home/travel_page.dart';
 import 'package:app01/pages/tabs/Me/mine_page.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'FaBu.dart';
 // import 'Home/Home.dart';
+import 'Home/global.dart';
 import 'Message/Xiaoxi.dart';
 import 'chat/Chat.dart';
 
@@ -23,7 +25,7 @@ class _TabsPageState extends State<TabsPage> {
 
   List _pageList=[
     OnePage(),
-     //HomePage(),
+    //HomePage(),
     //TravelPage(),
     XiaoxiPage(),
     FaBuPage(),
@@ -36,6 +38,7 @@ class _TabsPageState extends State<TabsPage> {
   final _bottomNavigationActiveIconColor = Colors.deepOrange; // 导航选中图标颜色
   @override
   Widget build(BuildContext context) {
+    register_user();
     return Scaffold(
         // appBar: AppBar(
         //   title: Text("校园交友"),
@@ -103,5 +106,28 @@ class _TabsPageState extends State<TabsPage> {
 
         ),
     );
+  }
+  Future register_user() async {
+    Dio dio = new Dio();
+    Map<String, String> map = {
+      'uid': Global.account,
+      'nickname':Global.nickname,
+      'college_name':Global.xueyuan,
+      'major_name':Global.zhuanye,
+      'class': Global.banji,
+    };
+    print(map);
+    FormData formData = FormData.fromMap(map);
+    Response response = await dio.post(
+      Global.register_info,
+      data: formData,
+    );
+    if (response.statusCode == 200) {
+      print(response.toString());
+      if (response.data !="fail") {
+        //Toast.show("注册成功", context);
+        //ssNavigator.pop(context);
+      }
+    }
   }
 }
