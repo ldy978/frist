@@ -17,33 +17,36 @@ class _MinePageState extends State<MinePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    register_user();
+    check_face_token();
   }
 
-  Future register_user() async {
-    Dio dio = new Dio();
-    Map<String, String> map = {
-      'uid': Global.account,
-      'nickname':Global.nickname,
-      'college_name':Global.xueyuan,
-      'major_name':Global.zhuanye,
-      'class': Global.banji,
-    };
-    print(map);
-    FormData formData = FormData.fromMap(map);
-    Response response = await dio.post(
-      Global.register_info,
-      data: formData,
-    );
-    if (response.statusCode == 200) {
-      print(response.toString());
-      if (response.data !="fail") {
-        //Toast.show("注册成功", context);
-        //ssNavigator.pop(context);
+Future check_face_token() async {
+    
+      Dio dio = new Dio();
+      Map<String, String> map = {
+        'uid': Global.account,
+        'nickname': Global.nickname,
+        'college_name': Global.xueyuan,
+        'major_name': Global.zhuanye,
+        'class': Global.banji,
+      };
+      print(map);
+      FormData formData = FormData.fromMap(map);
+      Response response = await dio.post(
+        Global.register_info,
+        data: formData,
+      );
+      if (response.statusCode == 200) {
+        print(response.toString());
+        if (response.data != "fail") {
+          //Toast.show("注册成功", context);
+          //ssNavigator.pop(context);
+          print(response.data["face_token"]);
+          Global.face_token = response.data["face_token"];
+        }
       }
-    }
+    
   }
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

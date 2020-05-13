@@ -7,6 +7,7 @@ class Global {
   static String zhuanye;
   static String banji;
   static String xueyuan;
+  static String face_token;
   static String register_info = "http://"+host+":8080/admin.php";
   static String host = '192.168.1.9';
   static String notify_url="http://"+host+":8080/admin.php?c=Notify&a=index";
@@ -29,4 +30,7 @@ class Global {
   //失物招领发送接口
   static String lost = "http://"+host+":8080/admin.php?c=Lost&a=send";
   static String faceRegister="https://aip.baidubce.com/rest/2.0/face/v3/faceset/user/add?access_token=24.5ac35281a37736b36dcfb2f8779cbf6d.2592000.1591376078.282335-19749840";
+
+  //注册人脸面部特征数据
+  static String register_face = "http://"+host+":8080/admin.php?c=Index&a=register_face";
 }
