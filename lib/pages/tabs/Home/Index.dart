@@ -7,11 +7,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:transparent_image/transparent_image.dart';
-// import 'package:hbzs/common/global.dart';
-// import 'package:hbzs/res/Browser.dart';
-// import 'package:hbzs/res/MyDrawer.dart';
-// import 'package:hbzs/res/customview.dart';
-// import 'package:transparent_image/transparent_image.dart';
+
 
 class IndexPage extends StatefulWidget {
   IndexPage({Key key}) : super(key: key);
@@ -21,12 +17,18 @@ class IndexPage extends StatefulWidget {
 }
 
 class _IndexPageState extends State<IndexPage> {
-  List formList = [];
+  List formList = [];//校内新闻
+  List formList1 =[];//失物招领
   initState() {
     super.initState();
     getHttp().then((val) {
       setState(() {
         formList = val.toList();
+      });
+    });
+    getHttp1().then((val) {
+      setState(() {
+        formList1 = val.toList();
       });
     });
   }
@@ -38,8 +40,25 @@ class _IndexPageState extends State<IndexPage> {
       response = await dio.get(
           Global.news_url,
           queryParameters: {"news": "news"});
-      print(response.data);
+      //print(response.data);
       return response.data["main_url_list"];
+    } catch (e) {
+      return print(e);
+    }
+  }
+  Future getHttp1() async {
+    try {
+      Response response;
+      Dio dio = new Dio();
+       Map<String, String> map = {
+                          'uid': Global.account
+                        };
+                        FormData formData = FormData.fromMap(map);
+      response = await dio.post(
+          Global.lostandfind,
+         data: formData);
+      print(response.data);
+      return response.data;
     } catch (e) {
       return print(e);
     }
@@ -101,6 +120,62 @@ class _IndexPageState extends State<IndexPage> {
     }
     return Column(children: tiles);
   }
+   Widget lostandfind() {
+    List<Widget> tiles = []; //先建一个数组用于存放循环生成的widget
+    for (var item in formList1) {
+      tiles.add(new Container(
+          margin: new EdgeInsets.all(10.0),
+          child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+                  return Browser(
+                    url: item["href"],
+                    title: "失物招领",
+                  );
+                }));
+              },
+              child: Column(children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    new Icon(
+                      Icons.ac_unit,
+                      color: Colors.black26,
+                      size: 17.0,
+                    ),
+                    new Container(
+                      margin: new EdgeInsets.only(left: 5.0),
+                      child: new Text(
+                        '校园新闻',
+                        style: new TextStyle(color: Color(0xFF888888)),
+                      ),
+                    )
+                  ],
+                ),
+                new Divider(
+                  color: Color(0xFF888888),
+                ),
+                //Text(item['title']),
+                new Margin(indent: 6.0),
+                // Image.network(
+                //   item['news_img'],
+                //   fit: BoxFit.cover,
+                // ),
+                 FadeInImage.memoryNetwork(
+                   placeholder: kTransparentImage,
+                   image: item['img_url'],
+                 ),
+                new Margin(indent: 6.0),
+                new Text(
+                  item['context'],
+                  style: new TextStyle(color: Color(0xFF888888)),
+                ),
+                new Divider(
+                  color: Color(0xFF888888),
+                ),
+              ]))));
+    }
+    return Column(children: tiles);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,6 +185,8 @@ class _IndexPageState extends State<IndexPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               TodayKb(),
+              BigDivider(),
+              lostandfind(),
               BigDivider(),
               buildGrid(),
             ],
@@ -124,6 +201,7 @@ class TodayKb extends StatelessWidget {
     return GestureDetector(
         onTap: () {
           print("失物招领");
+          Navigator.pushNamed(context, '/shiwu');
         },
         child: Padding(
           padding: EdgeInsets.all(18.0),
@@ -160,11 +238,11 @@ class TodayKb extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.only(top: 30.0, bottom: 2.0),
-                child: Text("安卓书籍丢失,请联系13231775152" + "\uD83D\uDE01"),
+                child: Text("发布信息，快速找回"+"\uD83D\uDE01"),
               ),
               Container(
                 margin: EdgeInsets.only(top: 30.0, bottom: 2.0),
-                child: Text('java书籍丢失',
+                child: Text('互帮互助',
                     style: TextStyle(
                         color: Color(
                           0xFF888888,

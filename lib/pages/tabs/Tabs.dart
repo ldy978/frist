@@ -21,12 +21,9 @@ class _TabsPageState extends State<TabsPage> {
 
   List _pageList = [
     OnePage(),
-    //HomePage(),
-    //TravelPage(),
     XiaoxiPage(),
     FaBuPage(),
     ChatPage(),
-    // MyPage(),
     MinePage(),
   ];
   final _bottomNavigationTextColor = Colors.black; // 导航字体颜色

@@ -22,7 +22,6 @@ String _imgServerPath;
 
 
 class _shibiePageState extends State<shibiePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,6 +86,7 @@ class _shibiePageState extends State<shibiePage> {
     Response response = await dio.post(Global.faceRegister, data: formData);
     if (response.data["error_msg"] == "face already exist") {
       Toast.show("人脸已经存在", context, duration: 5);
+      register_to_db(response.data["result"]["face_token"]);
     }
     ;
     if (response.data["error_msg"] == "pic not has face") {
@@ -97,12 +97,11 @@ class _shibiePageState extends State<shibiePage> {
       print(response.data["result"]["face_token"]);
       register_to_db(response.data["result"]["face_token"]);
     }
-    ;
     //print(json.decode(response.data)["error_msg"].toString());
   }
 
   //保存面部特征到数据库
-  register_to_db(String face_token) async {
+  Future register_to_db(String face_token) async {
     Dio dio = new Dio();
     FormData formData =
         FormData.fromMap({"uid": Global.account, "face_token": face_token});

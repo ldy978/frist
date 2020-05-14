@@ -89,19 +89,20 @@ class _LoginPageState extends State<LoginPage> {
                       if (_controller_user.text.length != 0 &&
                           _controller_pwd.text.length != 0) {
                         Toast.show("正在登录中...", context,
-                            duration: Toast.LENGTH_SHORT,
+                            duration: 3,
                             gravity: Toast.BOTTOM);
                         print("执行登录代码");
                         Dio dio = new Dio();
                         Map<String, String> map = {
                           'name': _controller_user.text.toString(),
-                          'pasd': _controller_pwd.text.toString()
+                          'pasd': _controller_pwd.text.toString(),
+                          'numb':"mxxzx"
                         };
                         FormData formData = FormData.fromMap(map);
-                        print(formData);
+                        print(formData.toString());
                         Response response = await dio.post(
                           "https://xxzx.bjtuhbxy.edu.cn/login/main/ios",
-                          data: formData,
+                           data: formData,
                         );
                         if (response.statusCode == 200) {
                           if (json.decode(response.data)["login_flag"] == 1) {
