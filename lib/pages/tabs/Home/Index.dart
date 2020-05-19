@@ -145,7 +145,7 @@ class _IndexPageState extends State<IndexPage> {
                     new Container(
                       margin: new EdgeInsets.only(left: 5.0),
                       child: new Text(
-                        '校园新闻',
+                        '失物招领',
                         style: new TextStyle(color: Color(0xFF888888)),
                       ),
                     )

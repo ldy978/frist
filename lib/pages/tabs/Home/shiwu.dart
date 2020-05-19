@@ -153,8 +153,8 @@ class _shiwuPageState extends State<shiwuPage> {
     if (response.statusCode == 200) {
       print(response.toString());
       if (response.data == 200) {
-        Toast.show("发布成功", context);
-        // Navigator.pop(context);
+        Toast.show("发布成功", context,duration: 4);
+        Navigator.pop(context);
       }  
     }
   }
