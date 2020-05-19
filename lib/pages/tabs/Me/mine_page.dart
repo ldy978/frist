@@ -88,19 +88,19 @@ Future check_face_token() async {
             ),
             Gaps.vGap10,
               Text(
-                Global.nickname,
+                Global.nickname!=null?Global.nickname:"",
                 style: MTextStyles.textBoldDark16,
               ),
               Text(
-                Global.banji,
+                Global.banji!=null?Global.banji:"",
                 style: MTextStyles.textBoldDark16,
               ),
               Text(
-                Global.xueyuan,
+                Global.xueyuan!=null?Global.xueyuan:"",
                 style: MTextStyles.textBoldDark16,
               ),
               Text(
-                Global.zhuanye,
+                Global.zhuanye!=null?Global.zhuanye:"",
                 style: MTextStyles.textBoldDark16,
               ),
 
