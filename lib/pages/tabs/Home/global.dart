@@ -34,4 +34,6 @@ class Global {
 
   //注册人脸面部特征数据
   static String register_face = "http://"+host+":8080/admin.php?c=Index&a=register_face";
+  static String yuanximomo = "http://192.168.1.9:8080/admin.php?c=Chat&a=index";
+  static String send_yuanxi = "http://192.168.1.9:8080/admin.php?c=Chat&a=send";
 }

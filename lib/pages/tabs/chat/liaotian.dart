@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:app01/controller/socket_manger.dart';
 import 'package:app01/pages/tabs/ChatMessage.dart';
 import 'package:app01/pages/tabs/Home/global.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:toast/toast.dart';
@@ -14,33 +15,71 @@ class LiaoTianPage extends StatefulWidget {
 }
 
 class _LiaoTianPageState extends State<LiaoTianPage>
-    with TickerProviderStateMixin{
-      
+    with TickerProviderStateMixin {
   final List<ChatMessage> _messages = <ChatMessage>[];
   final TextEditingController _textController = new TextEditingController();
-  bool _isComposing=false;
-
-    //根据该字段是否包含要发送的文本来决定是否启用发送按钮，并更改按钮的外观
-
+  bool _isComposing = false;
+  //根据该字段是否包含要发送的文本来决定是否启用发送按钮，并更改按钮的外观
+  List formList = [];
   @override
-  void initState() { 
+  void initState() {
     super.initState();
-    
+    getHttp().then((val) {
+      setState(() {
+        formList = val.toList();
+      });
+      for (var item in formList) {
+        ChatMessage message = new ChatMessage(
+          text: item["text"],
+          animationController: new AnimationController(
+              duration: new Duration(milliseconds: 300), vsync: this),
+        );
+        setState(() {
+          _messages.insert(0, message);
+        });
+        message.animationController.forward();
+      }
+    });
     // SocketManage.initSocket();
-    // List<int> a=[1024];    //请求参数    
+    // List<int> a=[1024];    //请求参数
     // SocketManage.mStream.listen(onReceiver);
     // SocketManage.addParams(a);
+  }
+
+  Future getHttp() async {
+    try {
+      Response response;
+      Dio dio = new Dio();
+      Map<String, String> map = {'uid': Global.account,"college_id":Global.xueyuan};
+      FormData formData = FormData.fromMap(map);
+      response = await dio.post(Global.yuanximomo, data: formData);
+      print(response.data);
+      return response.data;
+    } catch (e) {
+      return print(e);
+    }
   }
 
   void onReceiver(List<int> event) {
     debugPrint('useragreement listen :$event');
   }
-  
+
+  void getMessage(String text, int i) {
+    ChatMessage message = new ChatMessage(
+      text: text,
+      animationController: new AnimationController(
+          duration: new Duration(milliseconds: 300), vsync: this),
+    );
+    setState(() {
+      _messages.insert(i, message);
+    });
+    message.animationController.forward();
+  }
+
   void _handleSubmitted(String text) {
     _textController.clear();
     setState(() {
-     
-      _isComposing=false;//文本字段被清除
+      _isComposing = false; //文本字段被清除
     });
     ChatMessage message = new ChatMessage(
       text: text,
@@ -54,11 +93,11 @@ class _LiaoTianPageState extends State<LiaoTianPage>
   }
 
   //处理动画控制器以在我们不再需要资源时释放资源是个好习惯
-  void dispose(){
-    for(ChatMessage message in _messages)
-       message.animationController.dispose();
-       super.dispose();
-       SocketManage.dispos();
+  void dispose() {
+    for (ChatMessage message in _messages)
+      message.animationController.dispose();
+    super.dispose();
+    SocketManage.dispos();
   }
 
   Widget _buildTextComposer() {
@@ -70,8 +109,9 @@ class _LiaoTianPageState extends State<LiaoTianPage>
               new Flexible(
                   child: new TextField(
                 controller: _textController,
-                onEditingComplete:(){//在用户与该字段交互时通知文本的更改
-                    this._isComposing=_textController.text.length>0;
+                onEditingComplete: () {
+                  //在用户与该字段交互时通知文本的更改
+                  this._isComposing = _textController.text.length > 0;
                 },
                 //onSubmitted: _handleSubmitted,
                 decoration: new InputDecoration.collapsed(hintText: "发送消息"),
@@ -81,19 +121,42 @@ class _LiaoTianPageState extends State<LiaoTianPage>
                 child: new IconButton(
                     icon: new Icon(Icons.send),
                     //如果字段长度大于0 就发送数据
-                    onPressed: (){send(_textController.text);}
+                    onPressed: () {
+                      send(_textController.text);
+                    }
                     //在Dart语法中，=>函数声明=> expression是{ return expression; }的缩写。
                     ),
               )
             ])));
-            
   }
-  send (a){
+
+  send(a) {
     sendMesaage(a);
-    return a.length>0?_handleSubmitted(_textController.text):Toast.show("不能发送空消息", context);
+    
   }
-  sendMesaage(a){
-    print(a);
+
+  sendMesaage(text) async {
+    Dio dio = new Dio();
+    Map<String, String> map = {
+      'uid': Global.account,
+      'text': text,
+      'college_id':Global.xueyuan,
+    };
+    print(map);
+    FormData formData = FormData.fromMap(map);
+    Response response = await dio.post(
+      Global.send_yuanxi,
+      data: formData,
+    );
+    if (response.statusCode == 200) {
+      print(response.toString());
+      if (response.data == 200) {
+        return text.length > 0
+        ? _handleSubmitted(_textController.text)
+        : Toast.show("不能发送空消息", context);
+        //Navigator.pop(context);
+      }
+    }
   }
 
   @override
@@ -101,7 +164,7 @@ class _LiaoTianPageState extends State<LiaoTianPage>
     return new Scaffold(
         appBar: new AppBar(
           backgroundColor: Colors.green,
-          title: new Text(Global.current_room_name),
+          title: new Text(Global.xueyuan),
         ),
         body: new Column(children: <Widget>[
           new Flexible(
@@ -121,12 +184,14 @@ class _LiaoTianPageState extends State<LiaoTianPage>
         ]));
   }
 }
+
 const String _name = "我";
 
 class ChatMessage extends StatelessWidget {
-  ChatMessage({this.text, this.animationController});
+  ChatMessage({this.text, this.animationController, this.name});
   //animationController指定动画应该如何运行
   final String text;
+  final String name;
   final AnimationController animationController;
   @override
   Widget build(BuildContext context) {
@@ -160,8 +225,8 @@ class ChatMessage extends StatelessWidget {
   }
 
   @override
-  void dispose() { 
-    Global.current_room_name=null;
-    Global.current_room_id=null;
+  void dispose() {
+    Global.current_room_name = null;
+    Global.current_room_id = null;
   }
 }

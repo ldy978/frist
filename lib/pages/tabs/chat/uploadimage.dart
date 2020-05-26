@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:app01/pages/tabs/Home/global.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';

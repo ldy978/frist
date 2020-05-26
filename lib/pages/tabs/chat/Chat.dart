@@ -1,7 +1,4 @@
-import 'package:app01/pages/tabs/chat/ChatRoom.dart';
 import 'package:app01/pages/tabs/chat/gridview.dart';
-import 'package:app01/pages/tabs/res/colors.dart';
-import 'package:app01/pages/tabs/res/styles.dart';
 import 'package:flutter/material.dart';
 
 

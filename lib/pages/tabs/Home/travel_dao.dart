@@ -52,9 +52,10 @@ class TravelDao {
     params['type'] = type;
 
     Response response = await Dio().post(url, data: params);
-
+    print(params);
+    print(url);
     if (response.statusCode == 200) {
-      
+      print(response.data);
       return TravelModel.fromJson(response.data);
     } else {
       throw Exception('Failed to load travel_page.json');

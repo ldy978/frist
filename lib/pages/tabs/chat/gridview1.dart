@@ -1,4 +1,6 @@
+import 'package:app01/pages/tabs/Home/global.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 class MyGridView1 {
   GestureDetector getStructuredGridCell(context,name, image) {
@@ -6,14 +8,10 @@ class MyGridView1 {
     return GestureDetector(
       onTap: () {
         print("onTap called." + name);
-        if (name == "计算机科学与技术") {
+        if (name == Global.xueyuan) {//如果院系房间名字是自己的院系则会进入到对应的里面
           Navigator.pushNamed(context, '/liaotian');
-        }
-        if (name == "班级陌陌") {
-          Navigator.pushNamed(context, '/class');
-        }
-        if (name == "校园陌陌") {
-          Navigator.pushNamed(context, '/chatroom');
+        }else{
+          Toast.show("不在对应的院系不可加入", context,duration: 2);
         }
       },
       child: Card(
@@ -41,8 +39,8 @@ class MyGridView1 {
       mainAxisSpacing: 1.0,
       crossAxisSpacing: 1.0,
       children: <Widget>[
-
-        getStructuredGridCell(context,"计算机科学与技术", "a0.jpg"),
+        //院系名称必须正确
+        getStructuredGridCell(context,"计算机与信息技术学院", "a0.jpg"),
         getStructuredGridCell(context,"软件工程", "a1.jpg"),
         getStructuredGridCell(context,"电子商务", "a2.jpg"),
         getStructuredGridCell(context,"金融系", "a3.jpg"),

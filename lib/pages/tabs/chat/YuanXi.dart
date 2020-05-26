@@ -1,6 +1,5 @@
 import 'package:app01/pages/tabs/chat/gridview1.dart';
 import 'package:app01/pages/tabs/res/colors.dart';
-import 'package:app01/pages/tabs/res/styles.dart';
 import 'package:flutter/material.dart';
 
 class YuanXiPage extends StatefulWidget {
@@ -34,7 +33,6 @@ class _YuanXiPageState extends State<YuanXiPage> {
         ),
         title: Text(
           "院系陌陌",
-         
         ),
         centerTitle: true,
       ),
