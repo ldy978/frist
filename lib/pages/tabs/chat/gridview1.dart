@@ -9,6 +9,7 @@ class MyGridView1 {
       onTap: () {
         print("onTap called." + name);
         if (name == Global.xueyuan) {//如果院系房间名字是自己的院系则会进入到对应的里面
+        Global.current_room_name=name;
           Navigator.pushNamed(context, '/liaotian');
         }else{
           Toast.show("不在对应的院系不可加入", context,duration: 2);

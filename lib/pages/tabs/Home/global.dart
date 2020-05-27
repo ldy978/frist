@@ -9,7 +9,7 @@ class Global {
   static String xueyuan;
   static String face_token;
   static String register_info = "http://"+host+":8080/admin.php";
-  static String host = '192.168.1.9';
+  static String host = '192.168.1.127';
   static String notify_url="http://"+host+":8080/admin.php?c=Notify&a=index";
   static String lostandfind="http://"+host+":8080/admin.php?c=Lost&a=index";
   
@@ -34,6 +34,6 @@ class Global {
 
   //注册人脸面部特征数据
   static String register_face = "http://"+host+":8080/admin.php?c=Index&a=register_face";
-  static String yuanximomo = "http://192.168.1.9:8080/admin.php?c=Chat&a=index";
-  static String send_yuanxi = "http://192.168.1.9:8080/admin.php?c=Chat&a=send";
+  static String yuanximomo = "http://"+host+":8080/admin.php?c=Chat&a=index";
+  static String send_yuanxi = "http://"+host+":8080/admin.php?c=Chat&a=send";
 }

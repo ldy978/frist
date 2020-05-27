@@ -46,11 +46,11 @@ class _LiaoTianPageState extends State<LiaoTianPage>
     // SocketManage.addParams(a);
   }
 
-  Future getHttp() async {
+  Future getHttp() async {//获取消息内容
     try {
-      Response response;
-      Dio dio = new Dio();
-      Map<String, String> map = {'uid': Global.account,"college_id":Global.xueyuan};
+      Response response;//生命变量
+      Dio dio = new Dio();//实例化dio
+      Map<String, String> map = {'uid': Global.account,"college_id":Global.current_room_name};
       FormData formData = FormData.fromMap(map);
       response = await dio.post(Global.yuanximomo, data: formData);
       print(response.data);
@@ -140,7 +140,7 @@ class _LiaoTianPageState extends State<LiaoTianPage>
     Map<String, String> map = {
       'uid': Global.account,
       'text': text,
-      'college_id':Global.xueyuan,
+      'college_id':Global.current_room_name,
     };
     print(map);
     FormData formData = FormData.fromMap(map);
@@ -164,7 +164,7 @@ class _LiaoTianPageState extends State<LiaoTianPage>
     return new Scaffold(
         appBar: new AppBar(
           backgroundColor: Colors.green,
-          title: new Text(Global.xueyuan),
+          title: new Text(Global.current_room_name),
         ),
         body: new Column(children: <Widget>[
           new Flexible(
@@ -226,7 +226,7 @@ class ChatMessage extends StatelessWidget {
 
   @override
   void dispose() {
-    Global.current_room_name = null;
-    Global.current_room_id = null;
+    Global.current_room_name = '';
+    Global.current_room_id = '';
   }
 }
