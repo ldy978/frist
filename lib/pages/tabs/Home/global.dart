@@ -31,7 +31,7 @@ class Global {
   //失物招领发送接口
   static String lost = "http://"+host+":8080/admin.php?c=Lost&a=send";
   static String faceRegister="https://aip.baidubce.com/rest/2.0/face/v3/faceset/user/add?access_token=24.5ac35281a37736b36dcfb2f8779cbf6d.2592000.1591376078.282335-19749840";
-
+  static String pipei="https://aip.baidubce.com/rest/2.0/face/v3/search";
   //注册人脸面部特征数据
   static String register_face = "http://"+host+":8080/admin.php?c=Index&a=register_face";
   static String yuanximomo = "http://"+host+":8080/admin.php?c=Chat&a=index";

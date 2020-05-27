@@ -15,6 +15,7 @@ import 'package:app01/pages/tabs/Me/Search.dart';
 import 'package:app01/pages/tabs/Me/Setting.dart';
 import 'package:app01/pages/tabs/Me/Travel.dart';
 import 'package:app01/pages/tabs/Me/mine_page.dart';
+import 'package:app01/pages/tabs/Me/pei.dart';
 import 'package:app01/pages/tabs/Me/shibie.dart';
 import 'package:app01/pages/tabs/chat/ChatRoom.dart';
 import 'package:app01/pages/tabs/chat/Class.dart';
@@ -73,6 +74,7 @@ final SystemUiOverlayStyle _style =SystemUiOverlayStyle(statusBarColor: Colors.t
           '/createroom': (BuildContext context) => CreateRoomPage(),
           '/shiwu': (BuildContext context) => shiwuPage(),
           '/shibie': (BuildContext context) => shibiePage(),
+          '/pei': (BuildContext context) => peiPage(),
         },
         home: SplashPage(),
       ),

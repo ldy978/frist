@@ -164,8 +164,8 @@ class _LoginPageState extends State<LoginPage> {
         FormData formData = FormData.fromMap(map);
         Response response = await dio.post(Global.info_url, data: formData);
         if (response.statusCode == 200) {
-          //print(response.data.toString());
-          //print(json.decode(response.data)["information"]["zy"]);
+          print("登录"+response.data.toString());
+          
           Global.zhuanye = json.decode(response.data)["information"]["zy"];
           Global.banji = json.decode(response.data)["information"]["bj"];
           Global.xueyuan = json.decode(response.data)["information"]["xy"];

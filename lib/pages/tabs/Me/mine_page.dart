@@ -115,54 +115,6 @@ Future check_face_token() async {
               ),
             ),
             Gaps.vGap16,
-            Container(
-              height: 40.0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Expanded(
-                      child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Image.asset(
-                        'images/ic_action_collection.png',
-                        height: 16,
-                        width: 16,
-                      ),
-                      Gaps.hGap5,
-                      Text(
-                        '收藏',
-                        style: MTextStyles.textGray14,
-                      )
-                    ],
-                  )),
-                  Container(
-                    width: 0.5,
-                    color: MColors.gray_9a,
-                    height: 20,
-                  ),
-                  Expanded(
-                      child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Image.asset(
-                        'images/ic_action_comment.png',
-                        height: 16,
-                        width: 16,
-                      ),
-                      Gaps.hGap5,
-                      Text(
-                        '评论',
-                        style: MTextStyles.textGray14,
-                      )
-                    ],
-                  )),
-                ],
-              ),
-            ),
-            //Gaps.vGap16,
             Divider(
               color: MColors.gray_9a,
               thickness: 0.5,
@@ -171,6 +123,19 @@ Future check_face_token() async {
             SingleChildScrollView(
               child: Column(
                 children: <Widget>[
+                  new GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/pei');
+                    },
+                    child: new Container(
+                      alignment: Alignment.center,
+                      height: 50.0,
+                      child: Text(
+                        '人脸匹配',
+                        style: MTextStyles.textGray14,
+                      ),
+                    ),
+                  ),
                   new GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(context, '/travel');

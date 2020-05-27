@@ -7,11 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:toast/toast.dart';
 
-class shibiePage extends StatefulWidget {
-  shibiePage({Key key}) : super(key: key);
+class peiPage extends StatefulWidget {
+  peiPage({Key key}) : super(key: key);
 
   @override
-  _shibiePageState createState() => _shibiePageState();
+  _peiPageState createState() => _peiPageState();
 }
 
 //记录选择的照片
@@ -21,8 +21,7 @@ String _imgServerPath;
 
 
 
-class _shibiePageState extends State<shibiePage> {
-  var token=null;
+class _peiPageState extends State<peiPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,15 +29,15 @@ class _shibiePageState extends State<shibiePage> {
             elevation: 10,
             backgroundColor: Colors.green,
             title: Text(
-              "人脸识别",
+              "拍照找人",
             ),
             centerTitle: true),
         body: Center(
-            child: Global.face_token!=null&&Global.face_token!=""?Text("FACE_TOKEN:"+Global.face_token):RaisedButton(
+            child: RaisedButton(
           onPressed: () {
             select();
           },
-          child: Text("开始识别"),
+          child: Text("立即拍照"),
         )));
   }
 
@@ -69,34 +68,32 @@ class _shibiePageState extends State<shibiePage> {
       setState(() {
         _imgServerPath = "https://" + response.data.toString();
       });
-      faceRegister(_imgServerPath);
+      bijiao(_imgServerPath);
     }
   }
 
   //face register
-  faceRegister(String url) async {
+  bijiao(String url) async {
     print(url);
     Dio dio = new Dio();
     FormData formData = FormData.fromMap({
       "image": url,
       "image_type": "URL",
       "group_id_list": "1",
-      "user_id": Global.account,
-      "group_id": "1"
+      "access_token":"24.5ac35281a37736b36dcfb2f8779cbf6d.2592000.1591376078.282335-19749840"
     });
-    Response response = await dio.post(Global.faceRegister, data: formData);
-    if (response.data["error_msg"] == "face already exist") {
-      Toast.show("人脸已经存在", context, duration: 5);
-      register_to_db(response.data["result"]["face_token"]);
-    }
-    ;
-    if (response.data["error_msg"] == "pic not has face") {
-      Toast.show("未识别到人脸", context, duration: 5);
-    }
-    ;
+    Response response = await dio.post(Global.pipei, data: formData);
+    print(response.data);
     if (response.data["error_msg"] == "SUCCESS") {
-      token = response.data["result"]["face_token"];
-      register_to_db(response.data["result"]["face_token"]);
+      var text = response.data["result"];
+      print(text);
+      var list = text["user_list"][0];
+      print(list);
+      var xh = list["user_id"];
+      var score = list["score"].toString();
+      Toast.show("识别结果：用户学号"+xh+'\n'+"可信度："+score, context, duration: 20);
+    }else{
+      Toast.show("很抱歉！没有找到该用户的信息", context);
     }
     //print(json.decode(response.data)["error_msg"].toString());
   }
@@ -107,11 +104,8 @@ class _shibiePageState extends State<shibiePage> {
     FormData formData =
         FormData.fromMap({"uid": Global.account, "face_token": face_token});
     Response response = await dio.post(Global.register_face, data: formData);
-    if (response.data.toString() != 0) {
+    if (response.data.toString() == "success") {
       Toast.show("识别成功", context, duration: 5);
-      setState(() {
-        Global.face_token = token;
-      });
     }
   }
 }
