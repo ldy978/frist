@@ -39,10 +39,23 @@ List ChepaioDate = [];//存放车票信息
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
+      
+
         appBar: AppBar(
           //底部阴影
           elevation: 0.0,
           backgroundColor: Colors.white,
+          actions: <Widget>[
+              GestureDetector(
+                  child: IconButton(
+                    icon: Icon(Icons.add),
+                    color: Colors.black,
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/create_travel');
+                    },
+                  ))
+            ],
           leading: InkWell(
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
@@ -60,6 +73,7 @@ List ChepaioDate = [];//存放车票信息
           ),
           centerTitle: true,
         ),
+        
         body: EasyRefresh(
             child: SingleChildScrollView(
                 child: Column(
@@ -137,4 +151,5 @@ List ChepaioDate = [];//存放车票信息
     }
     return Column(children: l); 
   }
+  
 }

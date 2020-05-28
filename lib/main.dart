@@ -14,6 +14,7 @@ import 'package:app01/pages/tabs/Me/QianMing.dart';
 import 'package:app01/pages/tabs/Me/Search.dart';
 import 'package:app01/pages/tabs/Me/Setting.dart';
 import 'package:app01/pages/tabs/Me/Travel.dart';
+import 'package:app01/pages/tabs/Me/create_travel.dart';
 import 'package:app01/pages/tabs/Me/mine_page.dart';
 import 'package:app01/pages/tabs/Me/pei.dart';
 import 'package:app01/pages/tabs/Me/shibie.dart';
@@ -75,7 +76,8 @@ final SystemUiOverlayStyle _style =SystemUiOverlayStyle(statusBarColor: Colors.t
           '/shiwu': (BuildContext context) => shiwuPage(),
           '/shibie': (BuildContext context) => shibiePage(),
           '/pei': (BuildContext context) => peiPage(),
-        },
+          '/create_travel':(BuildContext context) =>CreateTravelPage()
+        }, 
         home: SplashPage(),
       ),
       backgroundColor: Colors.black54,

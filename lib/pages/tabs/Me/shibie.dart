@@ -93,7 +93,6 @@ class _shibiePageState extends State<shibiePage> {
     if (response.data["error_msg"] == "pic not has face") {
       Toast.show("未识别到人脸", context, duration: 5);
     }
-    ;
     if (response.data["error_msg"] == "SUCCESS") {
       token = response.data["result"]["face_token"];
       register_to_db(response.data["result"]["face_token"]);
