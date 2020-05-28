@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:app01/pages/tabs/Home/global.dart';
 import 'package:app01/pages/tabs/chat/Chat.dart';
 import 'package:app01/pages/tabs/res/styles.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class XiaoxiPage extends StatefulWidget {
@@ -14,12 +16,14 @@ class XiaoxiPage extends StatefulWidget {
 
 class _XiaoxiPageState extends State<XiaoxiPage>
     with AutomaticKeepAliveClientMixin {
+     
   @override
   bool get wantKeepAlive => true; // 保持底部切换状态不变
 
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       new GlobalKey<RefreshIndicatorState>(); // 下拉刷新使用key 用于主动操作
   List list = [];
+   List formList1 = [];
 
   Future<Null> _getData() {
     final Completer<Null> completer = new Completer<Null>();
@@ -38,7 +42,26 @@ class _XiaoxiPageState extends State<XiaoxiPage>
   initState() {
     // 状态数据初始化
     super.initState();
+     getTicketData().then((val) {
+      setState(() {
+        formList1 = val.toList();
+      });
+    });
     list.add('我是系统消息'); // 默认收条添加 活动消息（系统消息）
+  }
+
+  Future getTicketData() async {
+    try {
+      Response response;
+      Dio dio = new Dio();
+      Map<String, String> map = {'uid': Global.account};
+      FormData formData = FormData.fromMap(map);
+      response = await dio.post(Global.info_url, data: formData);
+      print(response.data);
+      return response.data;
+    } catch (e) {
+      return print(e);
+    }
   }
 
   @override
@@ -85,10 +108,11 @@ class _XiaoxiPageState extends State<XiaoxiPage>
     );
   }
 
-  Widget _createItem_sys() {
-    Widget widget = null;
-
-    widget = Container(
+Widget chepiao() {
+    List<Widget> tiles1 = []; //先建一个数组用于存放循环生成的widget
+    for (var item in formList1) {
+      tiles1.add(
+        Container(
         padding: EdgeInsets.only(left: 16, bottom: 16),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,15 +167,18 @@ class _XiaoxiPageState extends State<XiaoxiPage>
               ),
             )
           ],
-        ));
-    return widget;
+        ))
+      );
+    }
+    return Column(children: tiles1);
   }
+ 
 
   Widget _createItem(int index) {
     Widget widget = null;
 
     if (index % 3 == 1) {
-      return _createItem_sys();
+      return chepiao();
     }
     widget = Container(
         padding: EdgeInsets.only(left: 16, bottom: 16),

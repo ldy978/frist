@@ -1,6 +1,9 @@
+import 'package:app01/pages/tabs/Home/global.dart';
 import 'package:app01/pages/tabs/res/colors.dart';
 import 'package:app01/pages/tabs/res/styles.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 class TravelPage1 extends StatefulWidget {
   TravelPage1({Key key}) : super(key: key);
@@ -10,6 +13,29 @@ class TravelPage1 extends StatefulWidget {
 }
 
 class _TravelPage1State extends State<TravelPage1> {
+List ChepaioDate = [];//存放车票信息
+  @override
+  void initState() { 
+    super.initState();
+    getTicketDate().then((val) {//获取车票信息并赋值给ChepiaoDate
+      setState(() {
+        ChepaioDate = val.toList();
+      });
+    });
+  }
+  Future getTicketDate() async {
+    try {
+      Response response;
+      Dio dio = new Dio();
+      Map<String, String> map = {'uid': Global.account};
+      FormData formData = FormData.fromMap(map);
+      response = await dio.post(Global.chepiao, data: formData);
+      print(response.data);
+      return response.data;
+    } catch (e) {
+      return print(e);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,9 +60,29 @@ class _TravelPage1State extends State<TravelPage1> {
           ),
           centerTitle: true,
         ),
-        body: ListView(
-          children: <Widget>[
-            Container(
+        body: EasyRefresh(
+            child: SingleChildScrollView(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                buildChepiao()
+              ],
+            )),
+            onRefresh: () async {
+             getTicketDate().then((val) {//获取车票信息并赋值给ChepiaoDate
+      setState(() {
+        ChepaioDate = val.toList();
+      });
+    });
+              
+            },
+          ));
+  }
+  Widget buildChepiao(){
+    List<Widget> l = [];
+    for (var item in ChepaioDate){
+      l.add(
+        Container(
               decoration: BoxDecoration(
               image: new DecorationImage(
                 fit: BoxFit.fill,
@@ -46,111 +92,49 @@ class _TravelPage1State extends State<TravelPage1> {
               child: Column(
                 children: <Widget>[
                   SizedBox(
-                    height: 55,
+                    height: 45,
                   ),
                   Row(
                     children:<Widget>[
                       Expanded(child: Row(),flex: 1,),
-                      Text("北  京",style:TextStyle(fontSize:20),),
-                      Expanded(child: Row(),flex: 4,),
-                      Text("天  津",style:TextStyle(fontSize:20),),
+                      Text(item["source"],style:TextStyle(fontSize:20),),
+                      Expanded(child: Row(),flex: 1,),
+                      Text(item["train"],style:TextStyle(fontSize:20),),
+                      Expanded(child: Row(),flex: 1,),
+                      Text(item["destination"],style:TextStyle(fontSize:20),),
                       Expanded(child: Row(),flex: 1,),
                     ]
                   ),
                   SizedBox(
-                    height: 150,
+                    height: 15,
+                  ),
+                  Center(
+                    child:Text(item["time"]+"发车",style:TextStyle(fontSize:20),)
+                  ),
+                  //SizedBox(height: 25,),
+                  Row(
+                    children:<Widget>[
+                      Expanded(
+                    child:Text("乘车人："+Global.nickname,style:TextStyle(fontSize:15),textAlign: TextAlign.center),
+                    flex: 1,
+                  ),
+                  Expanded(child:Row(),flex:1)
+                    ]
+                  ),
+                  Row(
+                    children:<Widget>[
+                      SizedBox(width:50),
+                      Text("创建时间："+item["create_time"],style:TextStyle(fontSize:15),textAlign: TextAlign.left,),
+                    ]
+                  ),
+                  SizedBox(
+                    height: 80,
                   ),
                 ],
               )
-            ),
-          ],
-        )
-
-        // Center(
-        //     child: new SizedBox(
-        //   height: 360,
-        //   child:
-        // Card(
-
-        //   color: Colors.blue[300],
-        //   margin: EdgeInsets.only(
-        //     left: 20,
-        //     top: 0,
-        //     right: 20,
-        //     bottom: 0,
-        //   ),
-        //   shape: RoundedRectangleBorder(
-        //       borderRadius: BorderRadius.circular(20)), //设置圆角
-        //   child: Column(children: <Widget>[
-        //     SizedBox(
-        //       height: 40,
-        //     ),
-        //     Center(
-        //       child: Row(
-        //           crossAxisAlignment: CrossAxisAlignment.center, //左右间隔
-        //           mainAxisAlignment: MainAxisAlignment.center,
-        //           // mainAxisSpacing: 25.0, //上下间隔
-        //           children: <Widget>[
-        //             Text(
-        //               "始发站",
-        //               style: TextStyle(
-        //                 color: Colors.black,
-        //                 fontSize: 20.0,
-        //                 fontStyle: FontStyle.italic, //斜体
-        //                 fontWeight: FontWeight.bold, //加粗
-        //                 letterSpacing: 2.0,
-        //               ),
-        //             ),
-        //             Icon(Icons.add),
-        //             Text(
-        //               "终点站",
-        //               style: TextStyle(
-        //                 color: Colors.black,
-        //                 fontSize: 20.0,
-        //                 fontStyle: FontStyle.italic, //斜体
-        //                 fontWeight: FontWeight.bold, //加粗
-        //                 letterSpacing: 2.0,
-        //               ),
-        //             )
-        //           ]),
-        //     ),
-
-        //      SizedBox(
-        //       height: 20,
-        //     ),
-        //     Row(
-        //       mainAxisAlignment: MainAxisAlignment.center,
-        //       children: <Widget>[
-        //         RaisedButton(
-        //             onPressed: () {
-        //               Navigator.pushNamed(context, '/name');
-        //             },
-        //             color: Colors.white30),
-        //         Icon(Icons.add),
-        //         RaisedButton(
-        //             onPressed: () {
-        //               Navigator.pushNamed(context, '/name');
-        //             },
-        //             color: Colors.white24)
-        //       ],
-        //     ),
-
-        //     SizedBox(
-        //       height: 40,
-        //     ),
-
-        //     Row(
-        //       mainAxisAlignment: MainAxisAlignment.center,
-        //       children: <Widget>[
-        //         RaisedButton(onPressed:() {
-        //               Navigator.pushNamed(context, '/name');
-        //             },
-        //             child:Text("匹配"),
-        //             color: Colors.white54,)
-        //       ],
-        //     )
-        //   ]),
-        // ),
-        );
+            )
+      );
+    }
+    return Column(children: l); 
   }
 }

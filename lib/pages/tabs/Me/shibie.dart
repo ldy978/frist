@@ -112,6 +112,8 @@ class _shibiePageState extends State<shibiePage> {
       setState(() {
         Global.face_token = token;
       });
+    }else{
+       Toast.show("识别失败", context, duration: 5);
     }
   }
 }
